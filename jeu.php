@@ -14,6 +14,7 @@
   </head>
 
   <body>
+      <h1>GéoEscape</h1>
       <div id = map></div>
       <script type="text/javascript" src="map.js"></script>
   </body>
