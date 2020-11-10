@@ -11,7 +11,13 @@
 
       <div>
           Hall of fame :
-          A faire
+          <ol>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          </ol>
       </div>
 
       <form action="jeu.php">
