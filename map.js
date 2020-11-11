@@ -12,6 +12,7 @@ function initMap(){
 
 
 initMap();
+
 /* Ici, on récupère le fichier php et on analyse la base de données des objets pour leur affichage dans la couche layer. */
 let layer = L.featureGroup();
 

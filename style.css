@@ -1,4 +1,56 @@
+html{
+    background-color: #023047;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre{
+    text-align: center;
+    width: 40%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.hall{
+    color: white;
+    background-color: #FFB703;
+    margin-left: 90px;
+    margin-right: 90px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+h1{
+    color: #FFB703;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 5em;
+}
+
+
+input{
+    border-radius: 20px;
+    padding: 5px;
+    border-color: #FB8500;
+    margin-top: 20px;
+}
+
+button{
+    color: white;
+    background-color:#FFB703;
+    border-color: #FB8500;
+    border-radius: 20px;
+    width: 120px;
+    height: 25px;
+    margin-bottom: 20px;
+}
+
 #map{
     height: 500px;
-    width: 100%;
+    width: 80%;
 }
+
