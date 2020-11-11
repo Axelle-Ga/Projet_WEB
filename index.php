@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <div class="center">
+    <div class="cadreContainer">
       <div class = "cadre">
         <h1>Titre</h1>
 
