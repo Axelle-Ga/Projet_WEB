@@ -26,12 +26,18 @@ fetch('map.php', {
 		console.log(parseFloat(element.latitude));
 		if (element.visible == 1){
 			var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175]}); /* Récupération de l'icône et ancrage. */
-			var mark = L.marker([parseFloat(element.latitude), parseFloat(element.longitude)],{icon: ico}); /* Placement de l'icône. */
+			var mark = L.marker([element.latitude, element.longitude],{icon: ico}); /* Placement de l'icône. */
 			mark.bindPopup(element.indice);
 			layer.addLayer(mark);
 		}
 			
 	});
   })
+
+  layer.on("click", onClick);
+  function onClick(event){
+	console.log("salut");
+  }
+
 
   mymap.addLayer(layer);

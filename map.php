@@ -12,6 +12,6 @@ else {
     echo("La connexion a échoué...");
 }
 
-echo json_encode($all_pinpoint);
+echo json_encode($all_pinpoint, JSON_NUMERIC_CHECK);
 
 ?>
