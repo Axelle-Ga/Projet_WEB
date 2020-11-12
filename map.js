@@ -2,7 +2,7 @@ var mymap;
 /* initMap met en place le fond de carte en spécifiant les limites de zooms possibles et,
 bien entendu, la source du fond de carte désiré, ici, OpenStreetMap. */
 function initMap(){
-    mymap= L.map('map').fitWorld({animate:false});
+    mymap= L.map('map').setView([47.862453,13.1258962],12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	minZoom: 1,
 	maxZoom: 19,
@@ -14,7 +14,9 @@ function initMap(){
 initMap();
 
 /* Ici, on récupère le fichier php et on analyse la base de données des objets pour leur affichage dans la couche layer. */
-let layer = L.featureGroup();
+let layer = new L.featureGroup();
+
+var objets;
 
 fetch('map.php', {
 	method: 'post',
@@ -22,6 +24,7 @@ fetch('map.php', {
   .then(r => r.json())
   .then(r => {
 	console.log(r)
+	objet=r;
 	r.forEach(element => {
 		console.log(parseFloat(element.latitude));
 		if (element.visible == 1){
@@ -34,10 +37,25 @@ fetch('map.php', {
 	});
   })
 
+
+  mymap.on("zoomend",onZoom);
+
+  function onZoom(event){
+	if (mymap.getZoom()<5){
+		console.log(mymap.getZoom());
+		layer.remove();
+	}
+	else if (mymap.getZoom()>=5){
+		console.log(mymap.getZoom());
+		mymap.addLayer(layer);
+	}
+  }
+
   layer.on("click", onClick);
+
   function onClick(event){
-	console.log("salut");
+	console.log("salut");  		
   }
 
 
-  mymap.addLayer(layer);
+  
