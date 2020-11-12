@@ -16,5 +16,11 @@
   <body>
       <h1>GéoEscape</h1>
       <div id = map></div>
+      <div id = "sac">
+          <div class = "poche"></div>
+          <div class = "poche"></div>
+          <div class = "poche"></div>
+          <div class = "poche"></div>
+      </div>
       <script type="text/javascript" src="map.js"></script>
   </body>

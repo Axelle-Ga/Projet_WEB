@@ -26,11 +26,10 @@ fetch('map.php', {
 	console.log(r)
 	objet=r;
 	r.forEach(element => {
-		console.log(parseFloat(element.latitude));
-			var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175]}); /* Récupération de l'icône et ancrage. */
-			var mark = L.marker([element.latitude, element.longitude],{icon: ico}); /* Placement de l'icône. */
-			mark.bindPopup(element.indice);
-			layer.addLayer(mark);			
+		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175]}); /* Récupération de l'icône et ancrage. */
+		var mark = L.marker([element.latitude, element.longitude],{icon: ico}); /* Placement de l'icône. */
+		mark.bindPopup(element.indice);
+		layer.addLayer(mark);		
 	});
   })
 
