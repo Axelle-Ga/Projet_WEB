@@ -24,7 +24,8 @@ fetch('map.php', {
   .then(r => {
 	var layer = new L.featureGroup();
 	var objets=r;
-	var zoomMin =[];
+	var zoomMin = [];
+	var visible = [];
 	console.log(r)
 	initMap();
 	r.forEach(element => {
@@ -33,32 +34,37 @@ fetch('map.php', {
 		mark.bindPopup(element.indice);
 		
 		layer.addLayer(mark);
-
 		zoomMin.push(element.minZoom);
+		visible.push(element.visible);
+		if(element.visible == 1){
+			mark.addTo(mymap);
+		}
+		
 	});
-	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,layer)},true);
+	layer.addEventListener("click", function() {onClick(event, visible,layer)});
+	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer)},true);
+	
   })
 
 
-  function onZoom(mymap, zoomMin, layer){
+  function onZoom(mymap, zoomMin,visible, layer){
 	var displayed = layer.getLayers();
 	console.log(mymap.getZoom());
 	for (var i = 0 ; i < displayed.length ; i++){
 		if (mymap.hasLayer(displayed[i]) && mymap.getZoom()<zoomMin[i]){
-			console.log("remove");
 			mymap.removeLayer(displayed[i]);
 		}
-		else if (!(mymap.hasLayer(displayed[i])) && (mymap.getZoom()>=zoomMin[i])){
+		else if (!(mymap.hasLayer(displayed[i])) && (mymap.getZoom()>=zoomMin[i]) && visible[i]==1){
 			displayed[i].addTo(mymap);
 		}
 	}
   }
 
- /* layer.on("click", onClick);
 
-  function onClick(event){
-	console.log(event);
-  }*/
+  function onClick(event, visible, layer){
+	visible[1]=1;
+	console.log(visible);	
+  }
 
 
   
