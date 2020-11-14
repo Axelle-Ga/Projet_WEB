@@ -31,7 +31,15 @@ fetch('map.php', {
 	initMap();
 	r.forEach(element => {
 		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175], id : element.id}); /* Récupération de l'icône et ancrage. */
-		var mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); /* Placement de l'icône. */
+		var mark;
+		if (element.type == 4){
+			/* Placement de l'icône. */
+			mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}, {draggable:'true'}); 
+		}
+		else{
+			/* Placement de l'icône. */
+			mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
+		}
 		mark.bindPopup(element.indice);
 		
 		layer.addLayer(mark);
@@ -70,7 +78,33 @@ fetch('map.php', {
 	var num = id.indexOf(url);
 	console.log(num);
 	console.log(id);
-	visible[num+1]=1;
+	console.log(objets);
+	if (objets[num].type ==1) {
+		visible[num+1]=1;
+		visible[num+2]=1;
+	}
+	else if (objets[num].type ==2){
+		code(objets, num, visible);
+	}
+	else if (objets[num].type ==4){
+
+	}
+	else if (objets[num].type ==5){
+
+	}
+  }
+
+  function code(objets,num, visible) {
+	console.log(objets[num].code);
+	let result = prompt("Quel est le code?");
+	console.log(result);
+	if (parseInt(result) == objets[num].code) {
+		alert("C'est le bon code!!!");
+		visible[num+2]=1;
+	}
+	else{
+		alert("ERREUR : le code est faux")
+	}
   }
 
 
