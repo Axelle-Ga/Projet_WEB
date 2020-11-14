@@ -81,9 +81,9 @@ fetch('map.php', {
 	console.log(objets);
 	if (objets[num].type ==1) {
 		visible[num+1]=1;
-		visible[num+2]=1;
 	}
 	else if (objets[num].type ==2){
+		visible[num+1]=1;
 		code(objets, num, visible);
 	}
 	else if (objets[num].type ==4){
