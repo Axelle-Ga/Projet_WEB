@@ -34,6 +34,11 @@ body{
     border-radius: 10px;
 }
 
+ol{
+    padding-left: 0px;
+    width: fi;
+}
+
 h1{
     color: #FB8500;
     margin-top: 15px;
@@ -59,13 +64,19 @@ button{
     margin-bottom: 20px;
 }
 
-img{
-    width: fit-content;
-    height: fit-content;
-}
 
 #map{
     height: 500px;
     width: 80%;
 }
 
+@media (max-width: 510px){
+    .cadre{
+        width: 90%;
+    }
+
+    .hall{
+        margin: 30px;
+        width: auto;
+    }
+}
