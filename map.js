@@ -26,14 +26,16 @@ fetch('map.php', {
 	var objets=r;
 	var zoomMin = [];
 	var visible = [];
+	var id = [];
 	console.log(r)
 	initMap();
 	r.forEach(element => {
-		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175]}); /* Récupération de l'icône et ancrage. */
+		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175], id : element.id}); /* Récupération de l'icône et ancrage. */
 		var mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); /* Placement de l'icône. */
 		mark.bindPopup(element.indice);
 		
 		layer.addLayer(mark);
+		id.push(element.icone);
 		zoomMin.push(element.minZoom);
 		visible.push(element.visible);
 		if(element.visible == 1){
@@ -41,15 +43,16 @@ fetch('map.php', {
 		}
 		
 	});
-	layer.addEventListener("click", function() {onClick(event, visible,layer)});
-	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer)},true);
+
+
+	layer.on("click", function() {onClick(event, visible,layer, objets, id )});
+	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 	
   })
 
 
-  function onZoom(mymap, zoomMin,visible, layer){
+  function onZoom(mymap, zoomMin,visible, layer, objets,id){
 	var displayed = layer.getLayers();
-	console.log(mymap.getZoom());
 	for (var i = 0 ; i < displayed.length ; i++){
 		if (mymap.hasLayer(displayed[i]) && mymap.getZoom()<zoomMin[i]){
 			mymap.removeLayer(displayed[i]);
@@ -61,9 +64,13 @@ fetch('map.php', {
   }
 
 
-  function onClick(event, visible, layer){
-	visible[1]=1;
-	console.log(visible);	
+  function onClick(event, visible, layer, objets, id){
+	
+	var url = event.explicitOriginalTarget.attributes.src.nodeValue;
+	var num = id.indexOf(url);
+	console.log(num);
+	console.log(id);
+	visible[num+1]=1;
   }
 
 
