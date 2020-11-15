@@ -79,6 +79,9 @@ fetch('map.php', {
 	console.log(num);
 	console.log(id);
 	console.log(objets);
+	var music = new Audio(objets[num].music);
+	music.load();
+	music.play();
 	if (objets[num].type ==1) {
 		visible[num+1]=1;
 	}

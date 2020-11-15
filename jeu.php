@@ -15,6 +15,10 @@
   </head>
 
   <body>
+    <!--<audio  loop="true" autoplay="true" controls>
+      <source src="music/POL-desert-temple-short.mp3" type="audio/mpeg">
+      <source src="music/POL-desert-temple-short.waw" type="audio/mpeg">
+    </audio> -->
     <div class="jeu">
       <h2>GéoEscape</h2>
       <div id = map></div>
