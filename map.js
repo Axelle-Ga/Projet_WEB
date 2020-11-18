@@ -34,7 +34,7 @@ fetch('map.php', {
 		var mark;
 		if (element.type == 4){
 			/* Placement de l'icône. */
-			mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}, {draggable:'true'}); 
+			mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}, {draggable: true}); 
 		}
 		else{
 			/* Placement de l'icône. */
