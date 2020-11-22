@@ -46,8 +46,7 @@ fetch('map.php', {
 
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin )});
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
-	
-	
+		
   })
 
 
@@ -109,10 +108,20 @@ fetch('map.php', {
 		visible[num]=0;
 		mymap.removeLayer(displayed[num]);
 
+		visible[num+1]=1;
+		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
+		displayed[num+1].addTo(mymap);
+		}
+
+		var poche = document.getElementById("poche1");
+		var img = document.createElement("img");
+		img.src=objets[num].icone;
+		poche.appendChild(img);
+
 	}
 	//objet bloqué par un autre objet
 	else if (objets[num].type ==5){
-
+		
 	}
 	//objet dont on pourra lire le pop-up et qui disparrai après pour laisser place à un autre
 	else if (objets[num].type ==6){
@@ -127,7 +136,7 @@ fetch('map.php', {
 
 
 
-  
+
   function code(objets,num, visible, displayed) {
 	//améliorer cette fonction pour quel fonctionne avec un formulaire dans le pop-up
 
@@ -146,4 +155,26 @@ fetch('map.php', {
 		alert("ERREUR : le code est faux")
 	}
   }
+
+
+  //Ajout d'une sélection sur l'inventaire
+
+var poche = document.getElementsByClassName("poche");
+for (var i = 0; i < poche.length; i++) {
+	poche[i].addEventListener("click", function() { inventaire(event, poche) });
+}
+
+function inventaire(event, poche){
+	//pb quand on clique sur l'image dans la poche ça ne fct pas
+	if (event.target.classList.contains("selection")){
+		event.target.classList.remove("selection");
+	}
+	else{
+		for (var i = 0; i < poche.length; i++) {
+			poche[i].classList.remove("selection");
+			event.target.classList.add("selection");
+		}
+	}
+	
+}
 	

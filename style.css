@@ -106,6 +106,14 @@ button{
     margin: 10px;
     flex-grow: 1;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selection{
+    background-color:#FFB703;
+    border: solid #FB8500;
 }
 
 #timer{

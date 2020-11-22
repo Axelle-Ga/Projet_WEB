@@ -23,10 +23,10 @@
       <h2>GéoEscape</h2>
       <div id = map></div>
       <div id = "sac">
-          <div class = "poche"></div>
-          <div class = "poche"></div>
-          <div class = "poche"></div>
-          <div class = "poche"></div>
+          <div class = "poche" id = "poche1"></div>
+          <div class = "poche" id = "poche2"></div>
+          <div class = "poche" id = "poche3"></div>
+          <div class = "poche" id = "poche4"></div>
       </div>
       <div id = 'timer'>
         <span id = "temps" style="font-size: 2.5rem;">
