@@ -46,7 +46,6 @@ fetch('map.php', {
 		
 	});
 
-
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin )});
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 		
@@ -124,7 +123,19 @@ fetch('map.php', {
 	}
 	//objet bloqué par un autre objet
 	else if (objets[num].type ==5){
-		
+		var poche = document.getElementsByClassName("poche");
+		for (var i = 0; i < poche.length; i++) {
+			var c = poche[i].childNodes;
+			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[num-1]){
+				visible[num]=0;
+				mymap.removeLayer(displayed[num]);
+				visible[num+1]=1;
+				if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
+					displayed[num+1].addTo(mymap);
+					}
+
+			}
+		}
 	}
 	//objet dont on pourra lire le pop-up et qui disparrai après pour laisser place à un autre
 	else if (objets[num].type ==6){
@@ -162,10 +173,10 @@ fetch('map.php', {
 
   //Ajout d'une sélection sur l'inventaire
 
-var poche = document.getElementsByClassName("poche");
-for (var i = 0; i < poche.length; i++) {
-	poche[i].addEventListener("click", function() { inventaire(event, poche) });
-}
+  var poche = document.getElementsByClassName("poche");
+  for (var i = 0; i < poche.length; i++) {
+	  poche[i].addEventListener("click", function() { inventaire(event, poche) });
+  }
 
 function inventaire(event, poche){
 	//pb quand on clique sur l'image dans la poche ça ne fct pas
