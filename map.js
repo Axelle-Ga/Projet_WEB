@@ -26,6 +26,7 @@ fetch('map.php', {
 	var zoomMin = [];
 	var visible = [];
 	var id = [];
+	var utilise = [];
 	console.log(r)
 	initMap();
 	r.forEach(element => {
@@ -40,19 +41,20 @@ fetch('map.php', {
 		id.push(url+element.icone);
 		zoomMin.push(element.minZoom);
 		visible.push(element.visible);
+		utilise.push(0);
 		if(element.visible == 1){
 			mark.addTo(mymap);
 		}
 		
 	});
 
-	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin )});
+	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise )});
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 		
   })
 
 
-  function onZoom(mymap, zoomMin,visible, layer, objets,id){
+  function onZoom(mymap, zoomMin,visible, layer, objets,id,){
 	//en fonction du zoom de la carte les marker sont affichés ou non
 
 	//On récupère les couches
@@ -75,7 +77,7 @@ fetch('map.php', {
   }
 
 
-  function onClick(event, visible, layer, objets, id, zoomMin){
+  function onClick(event, visible, layer, objets, id, zoomMin, utilise){
 	
 	var displayed = layer.getLayers();
 
@@ -92,9 +94,12 @@ fetch('map.php', {
 
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
-		visible[num+1]=1;
-		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
-		displayed[num+1].addTo(mymap);
+		if (utilise[num]==0) {
+			visible[num+1]=1;
+			if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
+				displayed[num+1].addTo(mymap);
+			}
+			utilise[num]=1;
 		}
 	}
 	//objets de type coffre-fort à débloquer par code
@@ -137,7 +142,7 @@ fetch('map.php', {
 			}
 		}
 	}
-	//objet dont on pourra lire le pop-up et qui disparrai après pour laisser place à un autre
+	//objet dont on ne pourra pas lire le pop-up et qui disparrai après pour laisser place à un autre
 	else if (objets[num].type ==6){
 		visible[num]=0;
 		visible[num+1]=1;
