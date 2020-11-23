@@ -11,6 +11,9 @@ function initMap(){
 }).addTo(mymap);
   }
 
+  var url = window.location.href;
+  url = url.replace("jeu.php?","");
+  console.log(url);
 
 //on va créer la carte de base en récupérant les objets dans la base de donnée
 fetch('map.php', {
@@ -34,7 +37,7 @@ fetch('map.php', {
 		mark.bindPopup(element.indice);
 		
 		layer.addLayer(mark);
-		id.push(element.icone);
+		id.push(url+element.icone);
 		zoomMin.push(element.minZoom);
 		visible.push(element.visible);
 		if(element.visible == 1){
@@ -77,7 +80,7 @@ fetch('map.php', {
 	
 	var displayed = layer.getLayers();
 
-	var url = event.explicitOriginalTarget.attributes.src.nodeValue;
+	var url = event.target.src;
 	var num = id.indexOf(url);
 	console.log(num);
 	console.log(id);
