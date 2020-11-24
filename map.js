@@ -144,10 +144,7 @@ fetch('map.php', {
 	}
 	//objet dont on ne pourra pas lire le pop-up et qui disparrai après pour laisser place à un autre
 	else if (objets[num].type ==6){
-		visible[num]=0;
-		visible[num+1]=1;
-		displayed[num+1].addTo(mymap);
-		mymap.removeLayer(displayed[num]);
+		//fin du jeu
 	}
   }
 
@@ -164,10 +161,10 @@ fetch('map.php', {
 	//si c'est le bon code on libère l'objet suivant et on supprime le coffre
 	if (parseInt(result) == objets[num].code) {
 		alert("C'est le bon code!!!");
-		visible[num+2]=1;
+		visible[num+3]=1;
 		visible[num]=0;
 		mymap.removeLayer(displayed[num]);
-		displayed[num+2].addTo(mymap);
+		displayed[num+3].addTo(mymap);
 	}
 	//si ce n'est pas le bon code on previent le joueur
 	else{
