@@ -104,11 +104,11 @@ fetch('map.php', {
 	}
 	//objets de type coffre-fort à débloquer par code
 	else if (objets[num].type ==2){
+		//On récupère le formulaire
 		var submit = document.getElementById("form");
-		submit.addEventListener("submit",function(event) { 
-			event.stopImmediatePropagation();
-			onSubmit(event, objets,num, visible, displayed);
-			});
+		//On ajoute un évènement quand on soumet le formulaire
+		submit.addEventListener("submit",function() {onSubmit(event, objets,num, visible, displayed);});
+		//On libère l'objet suivant
 		visible[num+1]=1;
 		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
 		displayed[num+1].addTo(mymap);
@@ -179,21 +179,31 @@ function inventaire(event, poche){
 }
 
 function onSubmit(event,objets,num, visible, displayed){
+	//On empèche la page de se recharger
+	event.preventDefault();
+	//On récupère la valeur donner par le joueur
 	var result = document.getElementById("code").value;
-	console.log(result);
 
+	//Si c'est la bonnne valeur
 	if (parseInt(result) == objets[num].code) {
+		//On libère l'objet bloqué
 		visible[num+3]=1;
-		visible[num]=0;
-		mymap.removeLayer(displayed[num]);
 		displayed[num+3].addTo(mymap);
+		//On enlève le coffre de la map
+		visible[num]=0;
+		mymap.removeLayer(displayed[num]);	
 	}
+
 	//si ce n'est pas le bon code on previent le joueur
 	else{
-		/*alert("ERREUR : le code est faux")*/
-		//rajouter que le code est faux dans le pop-up
+		//On modifie le pop-up pour indiquer l'erreur au jour
+		displayed[num].setPopupContent(objets[num].indice+"<p>ERREUR : le code est faux</p>")
+		//On remet l'évement sur le submit 
+		var submit = document.getElementById("form");
+		submit.addEventListener("submit",function(event) { 
+			event.stopImmediatePropagation();
+			onSubmit(event, objets,num, visible, displayed);
+			});
 	}
-	event.preventDefault();
-	
 }
 	
