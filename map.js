@@ -50,7 +50,7 @@ fetch('map.php', {
 
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise )});
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
-		
+
   })
 
 
@@ -104,11 +104,15 @@ fetch('map.php', {
 	}
 	//objets de type coffre-fort à débloquer par code
 	else if (objets[num].type ==2){
+		var submit = document.getElementById("form");
+		submit.addEventListener("submit",function(event) { 
+			event.stopImmediatePropagation();
+			onSubmit(event, objets,num, visible, displayed);
+			});
 		visible[num+1]=1;
 		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
 		displayed[num+1].addTo(mymap);
 		}
-		code(objets, num, visible, displayed);
 	}
 	//objet de type récupérable
 	else if (objets[num].type ==4){
@@ -153,26 +157,6 @@ fetch('map.php', {
 
 
 
-  function code(objets,num, visible, displayed) {
-	//améliorer cette fonction pour quel fonctionne avec un formulaire dans le pop-up
-
-	let result = prompt("Quel est le code?");
-
-	//si c'est le bon code on libère l'objet suivant et on supprime le coffre
-	if (parseInt(result) == objets[num].code) {
-		alert("C'est le bon code!!!");
-		visible[num+3]=1;
-		visible[num]=0;
-		mymap.removeLayer(displayed[num]);
-		displayed[num+3].addTo(mymap);
-	}
-	//si ce n'est pas le bon code on previent le joueur
-	else{
-		alert("ERREUR : le code est faux")
-	}
-  }
-
-
   //Ajout d'une sélection sur l'inventaire
 
   var poche = document.getElementsByClassName("poche");
@@ -191,6 +175,25 @@ function inventaire(event, poche){
 			event.target.classList.add("selection");
 		}
 	}
+	
+}
+
+function onSubmit(event,objets,num, visible, displayed){
+	var result = document.getElementById("code").value;
+	console.log(result);
+
+	if (parseInt(result) == objets[num].code) {
+		visible[num+3]=1;
+		visible[num]=0;
+		mymap.removeLayer(displayed[num]);
+		displayed[num+3].addTo(mymap);
+	}
+	//si ce n'est pas le bon code on previent le joueur
+	else{
+		/*alert("ERREUR : le code est faux")*/
+		//rajouter que le code est faux dans le pop-up
+	}
+	event.preventDefault();
 	
 }
 	
