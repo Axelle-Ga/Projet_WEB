@@ -107,7 +107,9 @@ fetch('map.php', {
 		//On récupère le formulaire
 		var submit = document.getElementById("form");
 		//On ajoute un évènement quand on soumet le formulaire
-		submit.addEventListener("submit",function() {onSubmit(event, objets,num, visible, displayed);});
+		submit.addEventListener("submit",function(event) {
+			event.preventDefault();
+			onSubmit(event, objets,num, visible, displayed);});
 		//On libère l'objet suivant
 		visible[num+1]=1;
 		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
