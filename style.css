@@ -1,0 +1,140 @@
+html{
+    background: url(img/pyramide.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body{
+    margin: 0px;
+}
+
+.cadreContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre{
+    text-align: center;
+    width: 500px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.hall{
+    color: white;
+    background-color: #FB8500;
+    margin-left: 90px;
+    margin-right: 90px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+ol{
+    padding-left: 0px;
+    width: fi;
+}
+
+h1{ 
+    color: #FB8500;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 5em;
+}
+
+h2{ 
+    grid-row: 1;
+    grid-column: 1;
+    margin: auto;
+    color: #FB8500;
+    font-size: 4em;
+}
+
+
+input{
+    border-radius: 20px;
+    padding: 5px;
+    border-color: #FB8500;
+    margin-top: 20px;
+}
+
+button{
+    color: white;
+    background-color:#FFB703;
+    border-color: #FB8500;
+    border-radius: 20px;
+    width: 120px;
+    height: 25px;
+    margin-bottom: 20px;
+}
+
+.jeu{
+    display: grid;
+    grid-template-columns: auto 25%;
+    grid-template-rows: 120px auto;
+}
+
+#map{
+    grid-column: 1;
+    grid-row: 2;
+    height: 500px;
+    width: 85%;
+    margin: auto;
+    border-radius: 10px;
+}
+
+#sac{
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+}
+
+.poche{
+    background-color:#FB8500;
+    height: 100%;
+    margin: 10px;
+    flex-grow: 1;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selection{
+    background-color:#FFB703;
+    border: solid #FB8500;
+}
+
+#timer{
+    grid-column: 2;
+    grid-row: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    height: 70%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 510px){
+    .cadre{
+        width: 90%;
+    }
+
+    .hall{
+        margin: 30px;
+        width: auto;
+    }
+}

@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <title>EscapeGame géographique</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" media="screen" href="style.css">
   </head>
 
   <body>
-      <h1>EscapeGame Géographique</h1>
+    <div class="cadreContainer">
+      <div class = "cadre">
+        <h1>Titre</h1>
 
-      <div>
+        <div class = "hall">
           Hall of fame :
-          A faire
-      </div>
+          <ol>
+          <li>personneA</li>
+          <li>personneA</li>
+          <li>personneA</li>
+          <li>personneA</li>
+          <li>personneA</li>
+          </ol>
+        </div>
 
-      <form action="jeu.php">
-          <label for="">Username <input type="text"></label>
-        <button>Démarer</button>
-      </form>
+        <form action="jeu.php">
+          <input type="text" placeholder="Username">
+          <p>
+            <button>Démarer</button>
+          </p>
+        </form>
+      </div>
+    </div>
       
   </body>
