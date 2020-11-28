@@ -131,20 +131,37 @@ fetch('map.php', {
 		//On libère l'objet suivant
 		debloque(objets, visible, zoomMin, num, displayed);
 	}
+
 	//objet de type récupérable
 	else if (objets[num].type ==4){
-		visible[num]=0;
-		mymap.removeLayer(displayed[num]);
+		
 
-		//On libère l'objet suivant
-		debloque(objets, visible, zoomMin, num, displayed);
+		var inventaire = document.getElementsByClassName("poche");
+		console.log(inventaire.length);
+		for (var i = 0; i<inventaire.length; i++){
+			console.log(inventaire[i]);
+			if (inventaire[i].childNodes.length==0) {
 
-		var poche = document.getElementById("poche1");
+				visible[num]=0;
+				mymap.removeLayer(displayed[num]);
+
+				//On libère l'objet suivant
+				debloque(objets, visible, zoomMin, num, displayed);
+
+				var img = document.createElement("img");
+				img.src=objets[num].icone;
+				inventaire[i].appendChild(img);
+				break;
+			}
+		}
+
+		/*var poche = document.getElementById("poche1");
 		var img = document.createElement("img");
 		img.src=objets[num].icone;
-		poche.appendChild(img);
+		poche.appendChild(img);*/
 
 	}
+
 	//objet bloqué par un autre objet de type aéroport
 	else if (objets[num].type ==5){
 		var poche = document.getElementsByClassName("poche");
@@ -161,6 +178,7 @@ fetch('map.php', {
 			}
 		}
 	}
+
 	//objet dont on ne pourra pas lire le pop-up et qui disparrai après pour laisser place à un autre
 	else if (objets[num].type ==6){
 		//fin du jeu
