@@ -193,8 +193,8 @@ function onSubmit(event,objets,num, visible, displayed){
 	//Si c'est la bonnne valeur
 	if (parseInt(result) == objets[num].code) {
 		//On libère l'objet bloqué
-		visible[num+3]=1;
-		displayed[num+3].addTo(mymap);
+		visible[objets[num].code_debloque]=1;
+		displayed[objets[num].code_debloque].addTo(mymap);
 		//On enlève le coffre de la map
 		visible[num]=0;
 		mymap.removeLayer(displayed[num]);	
