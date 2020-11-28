@@ -77,6 +77,18 @@ fetch('map.php', {
   }
 
 
+  function debloque(objets, visible, zoomMin, num, displayed){
+	//Debloque l'objet à débloquer
+
+	//Rend l'objet à débloquer visible
+	visible[objets[num].debloque]=1;
+
+	//Ajoute à la carte l'objet à débloquer si il faut
+	if (!(mymap.hasLayer(displayed[objets[num].debloque])) && (mymap.getZoom()>=zoomMin[objets[num].debloque]) && visible[objets[num].debloque]==1){
+		displayed[objets[num].debloque].addTo(mymap);
+	}
+  }
+
   function onClick(event, visible, layer, objets, id, zoomMin, utilise){
 	
 	var displayed = layer.getLayers();
@@ -95,10 +107,7 @@ fetch('map.php', {
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
 		if (utilise[num]==0) {
-			visible[num+1]=1;
-			if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
-				displayed[num+1].addTo(mymap);
-			}
+			debloque(objets, visible, zoomMin, num, displayed);
 			utilise[num]=1;
 		}
 	}
@@ -111,20 +120,15 @@ fetch('map.php', {
 			event.preventDefault();
 			onSubmit(event, objets,num, visible, displayed);});
 		//On libère l'objet suivant
-		visible[num+1]=1;
-		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
-		displayed[num+1].addTo(mymap);
-		}
+		debloque(objets, visible, zoomMin, num, displayed);
 	}
 	//objet de type récupérable
 	else if (objets[num].type ==4){
 		visible[num]=0;
 		mymap.removeLayer(displayed[num]);
 
-		visible[num+1]=1;
-		if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
-		displayed[num+1].addTo(mymap);
-		}
+		//On libère l'objet suivant
+		debloque(objets, visible, zoomMin, num, displayed);
 
 		var poche = document.getElementById("poche1");
 		var img = document.createElement("img");
@@ -132,7 +136,7 @@ fetch('map.php', {
 		poche.appendChild(img);
 
 	}
-	//objet bloqué par un autre objet
+	//objet bloqué par un autre objet de type aéroport
 	else if (objets[num].type ==5){
 		var poche = document.getElementsByClassName("poche");
 		for (var i = 0; i < poche.length; i++) {
@@ -140,10 +144,10 @@ fetch('map.php', {
 			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[num-1]){
 				visible[num]=0;
 				mymap.removeLayer(displayed[num]);
-				visible[num+1]=1;
-				if (!(mymap.hasLayer(displayed[num+1])) && (mymap.getZoom()>=zoomMin[num+1]) && visible[num+1]==1){
-					displayed[num+1].addTo(mymap);
-					}
+				//On libère l'objet suivant
+				debloque(objets, visible, zoomMin, num, displayed);
+				//Change la vue de la map quand on prend l'avion
+				mymap.setView([objets[objets[num].debloque].latitude,[objets[objets[num].debloque].longitude]],objets[objets[num].debloque].minZoom);
 
 			}
 		}
