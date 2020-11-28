@@ -9,11 +9,11 @@ function initMap(){
 	maxZoom: 19,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
-  }
+}
 
-  var url = window.location.href;
-  url = url.replace("jeu.php?","");
-  console.log(url);
+//On récupère l'url courante pour l'utiliser lors d'évènement
+var url = window.location.href;
+url = url.replace("jeu.php?","");
 
 //on va créer la carte de base en récupérant les objets dans la base de donnée
 fetch('map.php', {
@@ -21,34 +21,47 @@ fetch('map.php', {
   })
   .then(r => r.json())
   .then(r => {
+	//Création d'un feature group dans lequel on va mettre les marker représentant les objets
 	var layer = new L.featureGroup();
+
 	var objets=r;
 	var zoomMin = [];
 	var visible = [];
 	var id = [];
 	var utilise = [];
-	console.log(r)
+
+	//On initialise la carte
 	initMap();
+
 	r.forEach(element => {
 		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175], id : element.id}); /* Récupération de l'icône et ancrage. */
 		var mark;
-		/* Placement de l'icône. */
+		//On crée le marker associé à l'objet
 		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
-
+		//On associe un popup au marker
 		mark.bindPopup(element.indice);
-		
+		//On ajoute le marker à la couche
 		layer.addLayer(mark);
+
+		//On ajoute l'id du marker au tableau id
 		id.push(url+element.icone);
+		//On ajoute le zoom minimal de visualisation au tableau zoomMin
 		zoomMin.push(element.minZoom);
+		//On ajoute le statue de visibilité (0 si invisible 1 sinon) au tableau visible
 		visible.push(element.visible);
+		//On ajoute 0 au tableau utilise pour indiquer que l'objet n'a pas encore été utlisé
 		utilise.push(0);
+
+		//Si l'objet est visible on l'ajoute à la carte
 		if(element.visible == 1){
 			mark.addTo(mymap);
 		}
 		
 	});
 
+	//On ajoute l'intéraction avec les markers
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise )});
+	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 
   })
@@ -95,10 +108,6 @@ fetch('map.php', {
 
 	var url = event.target.src;
 	var num = id.indexOf(url);
-	console.log(num);
-	console.log(id);
-	console.log(objets);
-	console.log(event.target.src)
 
 	/*var music = new Audio(objets[num].music);
 	music.load();
@@ -207,6 +216,7 @@ function onSubmit(event,objets,num, visible, displayed){
 		//On remet l'évement sur le submit 
 		var submit = document.getElementById("form");
 		submit.addEventListener("submit",function(event) { 
+			//On empèche la page de se recharger
 			event.stopImmediatePropagation();
 			onSubmit(event, objets,num, visible, displayed);
 			});
