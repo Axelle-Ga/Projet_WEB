@@ -168,6 +168,7 @@ fetch('map.php', {
 		for (var i = 0; i < poche.length; i++) {
 			var c = poche[i].childNodes;
 			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[num-1]){
+				poche[i].removeChild(poche[i].firstChild);
 				visible[num]=0;
 				mymap.removeLayer(displayed[num]);
 				//On libère l'objet suivant
