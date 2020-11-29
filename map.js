@@ -15,7 +15,7 @@ function initMap(){
 var url = window.location.href;
 url = url.replace("jeu.php?","");
 
-//On definit l'élement dragged
+//On definit l'élement dragged pour le drag n drop des objets récupérable
 var draggedItem;
 
 //on va créer la carte de base en récupérant les objets dans la base de donnée
@@ -59,7 +59,7 @@ fetch('map.php', {
 		if(element.visible == 1){
 			mark.addTo(mymap);
 		}
-		
+
 	});
 
 	//On ajoute l'intéraction avec les markers
@@ -157,6 +157,10 @@ fetch('map.php', {
 				img.draggable= true;
 				inventaire[i].appendChild(img);
 
+				img.addEventListener("click", function () {
+					selection(img);
+				})
+
 				//On ajoute de eventListener pour pouvoir déplacer les objets dans l'inventaire
 				img.addEventListener("dragstart",function () {
 					draggedItem = img;
@@ -175,12 +179,6 @@ fetch('map.php', {
 				break;
 			}
 		}
-
-		/*var poche = document.getElementById("poche1");
-		var img = document.createElement("img");
-		img.src=objets[num].icone;
-		poche.appendChild(img);*/
-
 	}
 
 	//objet bloqué par un autre objet de type aéroport
@@ -216,21 +214,22 @@ fetch('map.php', {
 
   var poche = document.getElementsByClassName("poche");
   for (var i = 0; i < poche.length; i++) {
-	  //Ajout d'une selection dans l'inventaire
-	  poche[i].addEventListener("click", function() { inventaire(event, poche) });
-	  //
+	//
 	  poche[i].addEventListener("dragover",function (event) {
 			event.preventDefault();		  
 	  })
 	  //On modifie le style de la poche quand on entre dedans
 	  poche[i].addEventListener("dragenter",function (event) {
 		event.preventDefault();	
-		this.classList.add("selection");
+		this.classList.add("selection2");
 	  })
 
 	  //On revient au style de base quand on sort de la poche
 	  poche[i].addEventListener("dragleave", function () {
-		this.classList.remove("selection");		  
+		if (this.classList.contains("selection")) {
+			this.classList.remove("selection");
+		}
+		this.classList.remove("selection2");		  
 	  })
 	  
 	  //On drop l'objet dans la poche si elle est vide
@@ -241,22 +240,22 @@ fetch('map.php', {
 			if (this.childNodes.length==0) {
 			this.appendChild(draggedItem);
 			}
-			this.classList.remove("selection");		  
+			this.classList.remove("selection2");		  
 	  })
   }
 
 
 //Fonction de sélection à supprimer quand le drag n drop fonctionnera
-function inventaire(event, poche){
-	//pb quand on clique sur l'image dans la poche ça ne fct pas
-	if (event.target.classList.contains("selection")){
-		event.target.classList.remove("selection");
+function selection(img){
+	//Ne fct que si on clique sur l'image
+	if (img.parentElement.classList.contains("selection")){
+		img.parentElement.classList.remove("selection");
 	}
 	else{
 		for (var i = 0; i < poche.length; i++) {
 			poche[i].classList.remove("selection");
-			event.target.classList.add("selection");
 		}
+		img.parentElement.classList.add("selection");
 	}
 	
 }

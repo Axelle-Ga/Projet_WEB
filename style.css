@@ -116,6 +116,10 @@ button{
     border: solid #FB8500;
 }
 
+.selection2{
+    opacity: 0.4;
+}
+
 #timer{
     grid-column: 2;
     grid-row: 1;
