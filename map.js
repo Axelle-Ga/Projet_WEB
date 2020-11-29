@@ -37,7 +37,8 @@ fetch('map.php', {
 	initMap();
 
 	r.forEach(element => {
-		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175], id : element.id}); /* Récupération de l'icône et ancrage. */
+		/* Récupération de l'icône et ancrage. */
+		var ico = L.icon({iconUrl : element.icone, iconSize:[element.taille_x, element.taille_y],iconAnchor : [element.taille_x/2,element.taille_y], popupAnchor : [0,-(element.taille_y+5)], id : element.id});
 		var mark;
 		//On crée le marker associé à l'objet
 		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
@@ -154,6 +155,7 @@ fetch('map.php', {
 				//On rajoute l'objet dans l'inventaire
 				var img = document.createElement("img");
 				img.src=objets[num].icone;
+				img.style.maxHeight = "80px"; //trouver un moyen de mettre ça en pourcentage de la taille de la div pour s'adapter aux =! écrans
 				img.draggable= true;
 				inventaire[i].appendChild(img);
 
@@ -188,6 +190,7 @@ fetch('map.php', {
 			var c = poche[i].childNodes;
 			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[num-1]){
 				poche[i].removeChild(poche[i].firstChild);
+				poche[i].classList.remove("selection");
 				visible[num]=0;
 				mymap.removeLayer(displayed[num]);
 				//On libère l'objet suivant
