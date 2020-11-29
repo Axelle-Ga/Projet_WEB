@@ -15,6 +15,9 @@ function initMap(){
 var url = window.location.href;
 url = url.replace("jeu.php?","");
 
+//On definit l'élement dragged
+var draggedItem;
+
 //on va créer la carte de base en récupérant les objets dans la base de donnée
 fetch('map.php', {
 	method: 'post',
@@ -147,10 +150,28 @@ fetch('map.php', {
 
 				//On libère l'objet suivant
 				debloque(objets, visible, zoomMin, num, displayed);
-
+				
+				//On rajoute l'objet dans l'inventaire
 				var img = document.createElement("img");
 				img.src=objets[num].icone;
+				img.draggable= true;
 				inventaire[i].appendChild(img);
+
+				//On ajoute de eventListener pour pouvoir déplacer les objets dans l'inventaire
+				img.addEventListener("dragstart",function () {
+					draggedItem = img;
+					setTimeout(() => {
+						draggedItem.style.display = "none";
+					}, 0);
+				})
+				img.addEventListener("dragend", function () {
+					setTimeout(() => {
+						draggedItem.style.display = "block";
+						draggedItem = null;
+					}, 0);					
+				})
+
+				//On casse la boucle car l'objet est ajouté à l'inventaire
 				break;
 			}
 		}
@@ -191,13 +212,41 @@ fetch('map.php', {
 
 
 
-  //Ajout d'une sélection sur l'inventaire
+  //Ajout d'une sélection sur l'inventaire et d'un drag n drop
 
   var poche = document.getElementsByClassName("poche");
   for (var i = 0; i < poche.length; i++) {
+	  //Ajout d'une selection dans l'inventaire
 	  poche[i].addEventListener("click", function() { inventaire(event, poche) });
+	  //
+	  poche[i].addEventListener("dragover",function (event) {
+			event.preventDefault();		  
+	  })
+	  //On modifie le style de la poche quand on entre dedans
+	  poche[i].addEventListener("dragenter",function (event) {
+		event.preventDefault();	
+		this.classList.add("selection");
+	  })
+
+	  //On revient au style de base quand on sort de la poche
+	  poche[i].addEventListener("dragleave", function () {
+		this.classList.remove("selection");		  
+	  })
+	  
+	  //On drop l'objet dans la poche si elle est vide
+	  poche[i].addEventListener("drop", function (event) {
+		  	//On previent le default event sinon ça ouvre l'image dans firefox
+			event.preventDefault();
+			//On drop l'élément
+			if (this.childNodes.length==0) {
+			this.appendChild(draggedItem);
+			}
+			this.classList.remove("selection");		  
+	  })
   }
 
+
+//Fonction de sélection à supprimer quand le drag n drop fonctionnera
 function inventaire(event, poche){
 	//pb quand on clique sur l'image dans la poche ça ne fct pas
 	if (event.target.classList.contains("selection")){
