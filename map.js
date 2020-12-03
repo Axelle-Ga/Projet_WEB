@@ -43,7 +43,7 @@ fetch('map.php', {
 		//On crée le marker associé à l'objet
 		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
 		//On associe un popup au marker
-		mark.bindPopup(element.indice);
+		mark.bindPopup(element.texte);
 		//On ajoute le marker à la couche
 		layer.addLayer(mark);
 
@@ -116,6 +116,13 @@ fetch('map.php', {
 	/*var music = new Audio(objets[num].music);
 	music.load();
 	music.play();*/
+
+	//Si le popup contient un bouton indice
+	if (document.getElementById("bouton_indice")) {
+		var bouton = document.getElementById("bouton_indice");
+		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+		bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed)});
+	}
 
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
@@ -208,8 +215,11 @@ fetch('map.php', {
 	}
   }
 
-
-
+//Debloque l'indice quand on clique sur le bouton indice
+  function debloque_indice(objets, num, displayed) {
+	//On change le texte du popup
+	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button id = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
+  }
 
 
 
@@ -282,7 +292,7 @@ function onSubmit(event,objets,num, visible, displayed){
 	//si ce n'est pas le bon code on previent le joueur
 	else{
 		//On modifie le pop-up pour indiquer l'erreur au jour
-		displayed[num].setPopupContent(objets[num].indice+"<p>ERREUR : le code est faux</p>")
+		displayed[num].setPopupContent(objets[num].texte+"<p>ERREUR : le code est faux</p>")
 		//On remet l'évement sur le submit 
 		var submit = document.getElementById("form");
 		submit.addEventListener("submit",function(event) { 
