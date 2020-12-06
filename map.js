@@ -32,6 +32,7 @@ fetch('map.php', {
 	var visible = [];
 	var id = [];
 	var utilise = [];
+	var utilise_event = [];
 
 	//On initialise la carte
 	initMap();
@@ -56,6 +57,8 @@ fetch('map.php', {
 		//On ajoute 0 au tableau utilise pour indiquer que l'objet n'a pas encore été utlisé
 		utilise.push(0);
 
+		utilise_event.push(0);
+
 		//Si l'objet est visible on l'ajoute à la carte
 		if(element.visible == 1){
 			mark.addTo(mymap);
@@ -64,9 +67,13 @@ fetch('map.php', {
 	});
 
 	//On ajoute l'intéraction avec les markers
-	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise )});
+	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, utilise_event )});
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
+
+	mymap.addEventListener("popupopen",function() {openPopup(event, mymap,zoomMin,visible,layer, objets,id)},true);
+
+	mymap.addEventListener("popupclose",function() {closePopup(event, mymap,zoomMin,visible,layer, objets,id)},true);
 
   })
 
@@ -106,7 +113,33 @@ fetch('map.php', {
 	}
   }
 
-  function onClick(event, visible, layer, objets, id, zoomMin, utilise){
+  function openPopup(event,mymap,zoomMin,visible,layer, objets,id) {
+	  
+	var displayed = layer.getLayers();
+
+	var url = event.target.src;
+	var num = id.indexOf(url);
+	  	//Si le popup contient un bouton indice
+	console.log(document.getElementsByClassName("bouton_indice")[0]);
+	if (document.getElementsByClassName("bouton_indice")[0]) {
+			console.log("true");
+			var bouton = document.getElementsByClassName("bouton_indice")[0];
+			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed)});
+	}
+  }
+
+  function closePopup(event, mymap,zoomMin,visible,layer, objets,id) {
+	if (document.getElementsByClassName("bouton_indice")[0]) {
+		console.log("true");
+		var bouton = document.getElementsByClassName("bouton_indice")[0];
+		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+		bouton.removeEventListener("click", function () { debloque_indice(objets, num,displayed)});
+		console.log("removed event");
+  	}
+}
+
+  function onClick(event, visible, layer, objets, id, zoomMin, utilise, utilise_event){
 	
 	var displayed = layer.getLayers();
 
@@ -116,13 +149,6 @@ fetch('map.php', {
 	/*var music = new Audio(objets[num].music);
 	music.load();
 	music.play();*/
-
-	//Si le popup contient un bouton indice
-	if (document.getElementById("bouton_indice")) {
-		var bouton = document.getElementById("bouton_indice");
-		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-		bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed)});
-	}
 
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
@@ -217,8 +243,9 @@ fetch('map.php', {
 
 //Debloque l'indice quand on clique sur le bouton indice
   function debloque_indice(objets, num, displayed) {
+	console.log("dans la fonction debloque indice");
 	//On change le texte du popup
-	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button id = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
+	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button class = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
   }
 
 
