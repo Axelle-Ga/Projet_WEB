@@ -33,6 +33,7 @@ fetch('map.php', {
 	var id = [];
 	var utilise = [];
 	var utilise_event = [];
+	var tentative = [];
 
 	//On initialise la carte
 	initMap();
@@ -44,7 +45,9 @@ fetch('map.php', {
 		//On crée le marker associé à l'objet
 		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
 		//On associe un popup au marker
-		mark.bindPopup(element.texte);
+		mark.bindPopup(element.texte,{
+			className: 'stylePopup'
+		  });
 		//On ajoute le marker à la couche
 		layer.addLayer(mark);
 
@@ -58,6 +61,7 @@ fetch('map.php', {
 		utilise.push(0);
 
 		utilise_event.push(0);
+		tentative.push(0);
 
 		//Si l'objet est visible on l'ajoute à la carte
 		if(element.visible == 1){
@@ -67,7 +71,7 @@ fetch('map.php', {
 	});
 
 	//On ajoute l'intéraction avec les markers
-	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, utilise_event )});
+	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, utilise_event, tentative )});
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 
@@ -125,7 +129,7 @@ fetch('map.php', {
 			console.log("true");
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed)});
+			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed,visible,tentative)});
 	}
   }
 
@@ -134,12 +138,12 @@ fetch('map.php', {
 		console.log("true");
 		var bouton = document.getElementsByClassName("bouton_indice")[0];
 		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-		bouton.removeEventListener("click", function () { debloque_indice(objets, num,displayed)});
+		bouton.removeEventListener("click", function () { debloque_indice(objets, num,displayed, visible, tentative)});
 		console.log("removed event");
   	}
 }
 
-  function onClick(event, visible, layer, objets, id, zoomMin, utilise, utilise_event){
+  function onClick(event, visible, layer, objets, id, zoomMin, utilise, utilise_event, tentative){
 	
 	var displayed = layer.getLayers();
 
@@ -164,7 +168,7 @@ fetch('map.php', {
 		//On ajoute un évènement quand on soumet le formulaire
 		submit.addEventListener("submit",function(event) {
 			event.preventDefault();
-			onSubmit(event, objets,num, visible, displayed);});
+			onSubmit(event, objets,num, visible, displayed, tentative);});
 		//On libère l'objet suivant
 		debloque(objets, visible, zoomMin, num, displayed);
 	}
@@ -242,11 +246,21 @@ fetch('map.php', {
   }
 
 //Debloque l'indice quand on clique sur le bouton indice
-  function debloque_indice(objets, num, displayed) {
+  function debloque_indice(objets, num, displayed, visible, tentative) {
 	console.log("dans la fonction debloque indice");
 	//On change le texte du popup
 	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button class = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
-  }
+	//Si le popup contient un submit on met un eventlistener dessus
+	if (document.getElementById("form")) {
+		var submit = document.getElementById("form");
+		submit.addEventListener("submit",function(event) { 
+			//On empèche la page de se recharger
+			event.stopImmediatePropagation();
+			onSubmit(event, objets,num, visible, displayed, tentative);
+			});
+	}
+
+}
 
 
 
@@ -300,7 +314,7 @@ function selection(img){
 	
 }
 
-function onSubmit(event,objets,num, visible, displayed){
+function onSubmit(event,objets,num, visible, displayed, tentative){
 	//On empèche la page de se recharger
 	event.preventDefault();
 	//On récupère la valeur donner par le joueur
@@ -317,16 +331,19 @@ function onSubmit(event,objets,num, visible, displayed){
 	}
 
 	//si ce n'est pas le bon code on previent le joueur
-	else{
+	else if (tentative[num] ==0){
 		//On modifie le pop-up pour indiquer l'erreur au jour
-		displayed[num].setPopupContent(objets[num].texte+"<p>ERREUR : le code est faux</p>")
+		var content = displayed[num].getPopup().getContent();
+		displayed[num].setPopupContent(content +"<p>ERREUR : le code est faux</p>")
 		//On remet l'évement sur le submit 
 		var submit = document.getElementById("form");
 		submit.addEventListener("submit",function(event) { 
 			//On empèche la page de se recharger
 			event.stopImmediatePropagation();
-			onSubmit(event, objets,num, visible, displayed);
+			onSubmit(event, objets,num, visible, displayed, tentative);
 			});
+
+		tentative[num] = 1;
 	}
 }
 	
