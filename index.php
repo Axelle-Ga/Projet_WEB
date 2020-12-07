@@ -20,7 +20,7 @@
           <li id="r3"></li>
           <li id="r4"></li>
           <li id="r5"></li>
-        </ol>>
+        </ol>
         </div>
 
         <form action="jeu.php">
