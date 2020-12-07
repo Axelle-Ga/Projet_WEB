@@ -32,7 +32,6 @@ fetch('map.php', {
 	var visible = [];
 	var id = [];
 	var utilise = [];
-	var utilise_event = [];
 	var tentative = [];
 
 	//On initialise la carte
@@ -60,7 +59,6 @@ fetch('map.php', {
 		//On ajoute 0 au tableau utilise pour indiquer que l'objet n'a pas encore été utlisé
 		utilise.push(0);
 
-		utilise_event.push(0);
 		tentative.push(0);
 
 		//Si l'objet est visible on l'ajoute à la carte
@@ -71,13 +69,13 @@ fetch('map.php', {
 	});
 
 	//On ajoute l'intéraction avec les markers
-	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, utilise_event, tentative )});
+	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, tentative )});
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 
-	mymap.addEventListener("popupopen",function() {openPopup(event, mymap,zoomMin,visible,layer, objets,id)},true);
+	mymap.addEventListener("popupopen",function() {openPopup(event, visible,layer, objets,id, tentative)},true);
 
-	mymap.addEventListener("popupclose",function() {closePopup(event, mymap,zoomMin,visible,layer, objets,id)},true);
+	mymap.addEventListener("popupclose",function() {closePopup(event, visible,layer, objets,id, tentative)},true);
 
   })
 
@@ -117,23 +115,30 @@ fetch('map.php', {
 	}
   }
 
-  function openPopup(event,mymap,zoomMin,visible,layer, objets,id) {
+
+  function openPopup(event,visible,layer, objets,id, tentative) {
 	  
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
 	var num = id.indexOf(url);
-	  	//Si le popup contient un bouton indice
-	console.log(document.getElementsByClassName("bouton_indice")[0]);
+
+	//Si le popup contient un bouton indice
 	if (document.getElementsByClassName("bouton_indice")[0]) {
-			console.log("true");
+			console.log(document.getElementsByClassName("bouton_indice"));
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
+
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
 			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed,visible,tentative)});
 	}
   }
 
-  function closePopup(event, mymap,zoomMin,visible,layer, objets,id) {
+  function closePopup(event,visible,layer, objets,id) {
+	var displayed = layer.getLayers();
+
+	var url = event.target.src;
+	var num = id.indexOf(url);
+
 	if (document.getElementsByClassName("bouton_indice")[0]) {
 		console.log("true");
 		var bouton = document.getElementsByClassName("bouton_indice")[0];
@@ -143,7 +148,7 @@ fetch('map.php', {
   	}
 }
 
-  function onClick(event, visible, layer, objets, id, zoomMin, utilise, utilise_event, tentative){
+  function onClick(event, visible, layer, objets, id, zoomMin, utilise, tentative){
 	
 	var displayed = layer.getLayers();
 
@@ -252,6 +257,7 @@ fetch('map.php', {
 	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button class = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
 	//Si le popup contient un submit on met un eventlistener dessus
 	if (document.getElementById("form")) {
+		console.log("submit dans le debloque indice");
 		var submit = document.getElementById("form");
 		submit.addEventListener("submit",function(event) { 
 			//On empèche la page de se recharger
@@ -342,6 +348,13 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 			event.stopImmediatePropagation();
 			onSubmit(event, objets,num, visible, displayed, tentative);
 			});
+
+		if (document.getElementsByClassName("bouton_indice")[0]) {
+			console.log("true");
+			var bouton = document.getElementsByClassName("bouton_indice")[0];
+			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed,visible,tentative)});
+		}
 
 		tentative[num] = 1;
 	}
