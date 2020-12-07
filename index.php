@@ -15,12 +15,12 @@
         <div class = "hall">
           Hall of fame :
           <ol>
-          <li>personneA</li>
-          <li>personneA</li>
-          <li>personneA</li>
-          <li>personneA</li>
-          <li>personneA</li>
-          </ol>
+          <li id="r1"></li>
+          <li id="r2"></li>
+          <li id="r3"></li>
+          <li id="r4"></li>
+          <li id="r5"></li>
+        </ol>>
         </div>
 
         <form action="jeu.php">
@@ -31,5 +31,5 @@
         </form>
       </div>
     </div>
-      
+  <script src="score.js"></script>
   </body>
