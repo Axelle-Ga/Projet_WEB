@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 28, 2020 at 06:32 PM
+-- Generation Time: Dec 07, 2020 at 10:17 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -31,10 +31,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_objet` (
   `id` int(100) NOT NULL,
   `nom` varchar(50) NOT NULL,
+  `texte` varchar(1000) NOT NULL,
   `indice` varchar(1000) NOT NULL,
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
   `icone` varchar(100) NOT NULL,
+  `taille_x` int(11) NOT NULL,
+  `taille_y` int(11) NOT NULL,
   `music` varchar(100) DEFAULT NULL,
   `type` int(11) NOT NULL,
   `minZoom` int(20) NOT NULL,
@@ -48,16 +51,16 @@ CREATE TABLE `tbl_objet` (
 -- Dumping data for table `tbl_objet`
 --
 
-INSERT INTO `tbl_objet` (`id`, `nom`, `indice`, `latitude`, `longitude`, `icone`, `music`, `type`, `minZoom`, `visible`, `code`, `debloque`, `code_debloque`) VALUES
-(0, 'Bonhomme', 'L’archéologue Markus Muller spécialisée dans les pyramides égyptiennes a été assassiné : explorez les alentours pour trouver des indices !', 47.8625, 13.1259, 'img/bonhomme.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 5, 1, NULL, 1, NULL),
-(1, 'Cadavre', 'Vous trouvez le corps de Markus Muller dans son salon. Il a probablement été empoisonné.', 47.8627, 13.1261, 'img/cadavre.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 14, 0, NULL, 2, NULL),
-(2, 'Caméra', 'Cette caméra semble filmer le perron de la maison de Markus Muller, mais il vous faudra demander le code à la police locale pour accéder aux images.\r\n\r\n<form id = \"form\">\r\n<input id=\"code\" type=\"text\">\r\n<input id = \"submit\" type=\"submit\">\r\n</form>', 47.8624, 13.1255, 'img/camera.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 2, 17, 0, 5130, 3, 5),
-(3, 'Poste de police', 'Un agent de police vous donne le code pour accéder aux images de la caméra.', 47.8654, 13.1233, 'img/police.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 17, 0, NULL, 4, NULL),
-(4, 'Post-it', 'L’agent … vous donne le code pour accéder aux images de la caméra : ……', 47.865, 13.123, 'img/post-it.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 3, 17, 0, NULL, NULL, NULL),
-(5, 'Image', 'Sur les images vous voyez une femme quitter le logement de Markus Muller. Elle tient un bout de papier qui semble être un billet d’avion.\r\n<p>Ne perdez pas de temps!</p>\r\nRécupérez votre billet et allez à l\'aéroport de Salzbourg pour prendre le premier vol direction l\'Egypte.', 47.8624, 13.1255, 'img/bobine.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 17, 0, NULL, 6, NULL),
-(6, 'Billet', 'Votre inventaire est plein. Résolvez les énigmes précédentes avant de récupérer cet objet.', 47.862, 13.1253, 'img/billet.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 4, 16, 0, NULL, 7, NULL),
-(7, 'Aéroport', 'Une femme correspondant à celle des images de surveillance à pris l’avion pour l’Egypte la nuit du meurtre. Vous la retrouverez peut-être là-bas.', 47.7942, 13.0012, 'img/avion.png', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 5, 16, 0, NULL, 8, NULL),
-(8, 'Madame', 'Bravo ! Vous avez retrouvé la meurtrière !', 29.9773, 31.1303, 'img/madame.jpg', 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 6, 7, 0, NULL, NULL, NULL);
+INSERT INTO `tbl_objet` (`id`, `nom`, `texte`, `indice`, `latitude`, `longitude`, `icone`, `taille_x`, `taille_y`, `music`, `type`, `minZoom`, `visible`, `code`, `debloque`, `code_debloque`) VALUES
+(0, 'Bonhomme', 'L’archéologue Markus Muller spécialisée dans les pyramides égyptiennes a été assassiné : explorez les alentours pour trouver des indices !\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>Zoomez pour trouver le corps de l\'archéologue.</p>', 47.8625, 13.1259, 'img/bonhomme2.png', 68, 150, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 5, 1, NULL, 1, NULL),
+(1, 'Cadavre', 'Vous trouvez le corps de Markus Muller dans son salon. Il a probablement été empoisonné.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>Explorez les environs.</p>', 47.8625, 13.1254, 'img/cadavre2.png', 200, 63, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 14, 0, NULL, 2, NULL),
+(2, 'Caméra', 'Cette caméra semble filmer le perron de la maison de Markus Muller, mais il vous faudra demander le code à la police locale pour accéder aux images.\r\n\r\n<form id = \"form\">\r\n<input id=\"code\" type=\"text\">\r\n<input id = \"submit\" type=\"submit\">\r\n</form>\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '</p>Le poste de police se trouve au nord.<p>', 47.8621, 13.1253, 'img/camera.png', 101, 76, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 2, 18, 0, 5130, 3, 5),
+(3, 'Poste de police', 'Un agent de police vous donne le code pour accéder aux images de la caméra.', '', 47.865, 13.1254, 'img/police2.png', 150, 79, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 17, 0, NULL, 4, NULL),
+(4, 'Post-it', 'Le code est 5130.', '', 47.8649, 13.124, 'img/post-it.png', 100, 100, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 3, 17, 0, NULL, NULL, NULL),
+(5, 'Image', 'Sur les images vous voyez une femme quitter le logement de Markus Muller. Elle tient un bout de papier qui semble être un billet d’avion.\r\n<p>Ne perdez pas de temps!</p>\r\nRécupérez votre billet et allez à l\'aéroport de Salzburg pour prendre le premier vol direction l\'Egypte.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>L\'aéroport se trouve à l\'ouest de Salzburg.</p>', 47.8621, 13.1253, 'img/bobine2.png', 100, 92, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 17, 0, NULL, 6, NULL),
+(6, 'Billet', 'Votre inventaire est plein. Résolvez les énigmes précédentes avant de récupérer cet objet.', '', 47.8622, 13.1262, 'img/billet.png', 232, 97, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 4, 16, 0, NULL, 7, NULL),
+(7, 'Aéroport', 'Une femme correspondant à celle des images de surveillance à pris l’avion pour l’Egypte la nuit du meurtre. Vous la retrouverez peut-être là-bas.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>Utiliser votre billet pour prendre l\'avion.</p>', 47.7942, 13.0012, 'img/avion2.png', 300, 75, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 5, 16, 0, NULL, 8, NULL),
+(8, 'Madame', 'Bravo ! Vous avez retrouvé la meurtrière !', '', 29.9773, 31.1303, 'img/madame.jpg', 100, 100, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 6, 7, 0, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
