@@ -11,8 +11,6 @@ function initMap(){
 }).addTo(mymap);
 }
 
-var util = new Object;
-
 //On récupère l'url courante pour l'utiliser lors d'évènement
 var url = window.location.href;
 url = url.replace("jeu.php?","");
@@ -70,14 +68,6 @@ fetch('map.php', {
 
 	});
 
-	util.objets = objets;
-	util.layer =layer;
-	util.id = id;
-	util.zoomMin = zoomMin;
-	util.visible= visible;
-	util.utilise = utilise;
-	util.tentative=tentative;
-
 	//On ajoute l'intéraction avec les markers
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, tentative )});
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
@@ -85,7 +75,7 @@ fetch('map.php', {
 
 	/*mymap.addEventListener("popupopen",function() {openPopup(event, visible,layer, objets,id, tentative)},true);
 */
-	mymap.addEventListener("popupclose",function() {closePopup(event, visible,layer, objets,id, tentative)},true);
+	/*mymap.addEventListener("popupclose",function() {closePopup(event, visible,layer, objets,id, tentative)},true);*/
 
   })
 
@@ -143,7 +133,7 @@ fetch('map.php', {
 	}
   }*/
 
-  function closePopup(event,visible,layer, objets,id) {
+ /* function closePopup(event,visible,layer, objets,id) {
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
@@ -157,7 +147,7 @@ fetch('map.php', {
 		bouton.removeEventListener("click",debloque_indice);
 		console.log("removed event");
   	}
-}
+}*/
 
 
 
@@ -174,7 +164,7 @@ fetch('map.php', {
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-			bouton.addEventListener("click", debloque_indice);
+			bouton.addEventListener("click", function(){debloque_indice(objets,num, visible, displayed, tentative)});
 	}
 
 	/*var music = new Audio(objets[num].music);
@@ -249,10 +239,13 @@ fetch('map.php', {
 
 	//objet bloqué par un autre objet de type aéroport
 	else if (objets[num].type ==5){
+		console.log(objets);
+		console.log("salut type5");
 		var poche = document.getElementsByClassName("poche");
+
 		for (var i = 0; i < poche.length; i++) {
 			var c = poche[i].childNodes;
-			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[num-1]){
+			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[objets[num].objet_debloque]){
 				poche[i].removeChild(poche[i].firstChild);
 				poche[i].classList.remove("selection");
 				visible[num]=0;
@@ -273,14 +266,7 @@ fetch('map.php', {
   }
 
 //Debloque l'indice quand on clique sur le bouton indice
-  function debloque_indice() {
-	var objets = util.objets;
-	var layer = util.layer;
-	var id = util.id;
-	var zoomMin = util.zoomMin;
-	var visible = util.visible;
-	var utilise = util.utilise;
-	var tenatative = util.tentative;
+  function debloque_indice(objets,num, visible, displayed, tentative) {
 
 	console.log("dans la fonction debloque indice");
 	//On change le texte du popup
@@ -383,7 +369,7 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 			console.log("true");
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-			bouton.addEventListener("click", function () { debloque_indice(objets, num,displayed,visible,tentative)});
+			bouton.addEventListener("click", function () { debloque_indice(objets,num, visible, displayed, tentative)});
 		}
 
 		tentative[num] = 1;
