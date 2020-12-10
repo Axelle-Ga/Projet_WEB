@@ -245,11 +245,6 @@ fetch('map.php', {
 
 		for (var i = 0; i < poche.length; i++) {
 			var c = poche[i].childNodes;
-			console.log(num);
-			console.log(c);
-			console.log(c[0].src);
-			console.log(objets[num].objet_debloque);
-			console.log(id[objets[num].objet_debloque]);
 			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[objets[num].objet_debloque]){
 				poche[i].removeChild(poche[i].firstChild);
 				poche[i].classList.remove("selection");
