@@ -5,12 +5,13 @@
     <title>EscapeGame géographique</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" media="screen" href="style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
   </head>
 
   <body>
     <div class="cadreContainer">
       <div class = "cadre">
-        <h1>Titre</h1>
+        <h1>L'affaire Müller</h1>
 
         <div class = "hall">
           Hall of fame :
