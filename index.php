@@ -14,7 +14,7 @@
         <h1>L'affaire Müller</h1>
 
         <div class = "hall">
-          Hall of fame :
+          <h3>Meilleurs scores :</h3>
           <ol>
           <li id="r1"></li>
           <li id="r2"></li>
