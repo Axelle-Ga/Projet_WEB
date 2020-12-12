@@ -21,7 +21,7 @@
       <source src="music/POL-desert-temple-short.waw" type="audio/mpeg">
     </audio> -->
     <div class="jeu">
-      <h2>GéoEscape</h2>
+      <h2 id="titre_jeu">GéoEscape</h2>
       <div id = map></div>
       <div id = "sac">
           <div class = "poche" id = "poche1"></div>
