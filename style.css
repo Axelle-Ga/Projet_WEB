@@ -1,3 +1,10 @@
+body {
+    padding: 0;
+    margin: 0px;
+    font-family:"PAPYRUS";
+    src: url("font/papyrus/PAPYRUS.ttf") format("truetype");
+  }
+  
 html{
     background: url(img/pyramide.png) no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -6,8 +13,9 @@ html{
     background-size: cover;
 }
 
-body{
-    margin: 0px;
+html, body, #map {
+    height: 100%;
+    width: 100vw;
 }
 
 .cadreContainer{
@@ -27,7 +35,7 @@ body{
 
 .hall{
     color: white;
-    background-color: #FB8500;
+    background: linear-gradient(#FB8500,#ffb803);
     margin-left: 90px;
     margin-right: 90px;
     padding: 10px;
@@ -36,14 +44,27 @@ body{
 
 ol{
     padding-left: 0px;
-    width: fi;
+    list-style-position: inside;
+}
+
+#r1{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+#r2{
+    font-weight: bold;
+    font-size: 1.2em;
+    
+}
+#r3{
+    font-weight: bold;
 }
 
 h1{ 
     color: #FB8500;
     margin-top: 15px;
     margin-bottom: 10px;
-    font-size: 5em;
+    font-size: 4em;
 }
 
 h2{ 
@@ -52,6 +73,12 @@ h2{
     margin: auto;
     color: #FB8500;
     font-size: 4em;
+}
+
+h3{
+    color: white;
+    font-size: 1.8em;
+    margin: auto;
 }
 
 
@@ -73,16 +100,18 @@ button{
 }
 
 .jeu{
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: auto 25%;
-    grid-template-rows: 120px auto;
+    grid-template-rows: auto 80%;
 }
 
 #map{
     grid-column: 1;
     grid-row: 2;
-    height: 500px;
-    width: 85%;
+    height: 90%;
+    width: 90%;
     margin: auto;
     border-radius: 10px;
 }
@@ -97,7 +126,9 @@ button{
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     width: 80%;
+    height: 85%;
     padding: 10px;
+    margin: auto;
 }
 
 .poche{
@@ -116,19 +147,44 @@ button{
     border: solid #FB8500;
 }
 
+.selection2{
+    opacity: 0.4;
+}
+
 #timer{
     grid-column: 2;
     grid-row: 1;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
-    height: 70%;
-    width: 80%;
+    height: 80%;
+    width: 85%;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-@media (max-width: 510px){
+.stylePopup .leaflet-popup-content-wrapper,
+    .stylePopup .leaflet-popup-tip {
+        background-color: #023047;
+        color: white;
+        font: 1.2em 'PAPYRUS';
+    }
+
+.madame{
+    position: fixed;
+    left: 10px;
+    bottom: 0px;
+    width: 25%;
+}
+
+@media (max-width: 950px){
+    #chrono{
+        font-size: 0.7em;
+    }
+}
+
+@media (max-width: 715px){
     .cadre{
         width: 90%;
     }
@@ -137,4 +193,50 @@ button{
         margin: 30px;
         width: auto;
     }
+
+    .jeu{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #titre_jeu{
+        display: none;
+    }
+
+    #sac{
+        order: 3;
+        flex-direction: row;
+        margin: auto;
+        width: 81%;
+        height: 10%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0px 0px 10px 10px ;
+    }
+
+    .poche{
+        margin: 10px;
+    }
+
+    #timer{
+        order: 1;
+        margin: 10px;
+        height: 15%;
+        width: 85%;
+    }
+
+    #chrono{
+        font-size: 1em;
+    }
+
+    #map{
+        width: 85%;
+        order: 2;
+        border-radius: 10px 10px 0px 0px ;
+        flex-grow: 100%;
+    }
+
 }
