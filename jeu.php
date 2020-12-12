@@ -34,7 +34,7 @@
           <span style="color: #FB8500;">
             <i class="fas fa-stopwatch"></i>
           </span>
-          <span id = 'chrono'>00:00:00</span>
+          <span id = 'chrono'>0:0:0</span>
         </span>
       </div>
     </div>

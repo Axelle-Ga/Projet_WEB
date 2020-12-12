@@ -226,7 +226,7 @@ fetch('map.php', {
 	//objet de fin
 	else if (objets[num].type ==6){
 		//fin du jeu
-		
+		document.getElementById("form").time.value=document.getElementById("chrono").innerHTML;
 	}
   }
 

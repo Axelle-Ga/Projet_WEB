@@ -25,7 +25,6 @@
         </div>
 
         <form action="jeu.php">
-          <input type="text" placeholder="Username">
           <p>
             <button>Démarer</button>
           </p>

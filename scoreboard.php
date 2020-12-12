@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect('localhost', 'root', 'root', 'highscore');
+$link = mysqli_connect('localhost', 'root', 'root', 'objet');
 
 if($result = mysqli_query($link, 'SELECT * FROM scores ORDER BY time ASC LIMIT 5')){
 
