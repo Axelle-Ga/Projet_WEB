@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 12, 2020 at 07:21 PM
+-- Generation Time: Dec 12, 2020 at 07:32 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -46,7 +46,9 @@ INSERT INTO `scores` (`username`, `time`) VALUES
 ('Axou', '00:00:09'),
 ('Axelle', '00:00:09'),
 ('Axou', '00:00:28'),
-('Salut', '00:00:09');
+('Salut', '00:00:09'),
+('Axelle', '00:01:26'),
+('Charlotte', '00:01:27');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,7 @@ INSERT INTO `tbl_objet` (`id`, `nom`, `texte`, `indice`, `latitude`, `longitude`
 (5, 'Image', 'Sur les images vous voyez une femme quitter le logement de Markus Muller. Elle tient un bout de papier qui semble être un billet d’avion.\r\n<p>Ne perdez pas de temps!</p>\r\nRécupérez votre billet et allez à l\'aéroport de Salzburg pour prendre le premier vol direction l\'Egypte.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>L\'aéroport se trouve à l\'ouest de Salzburg.</p>', 47.8621, 13.1253, 'img/bobine.png', 100, 92, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 1, 17, 0, NULL, 6, NULL, NULL),
 (6, 'Billet', 'Votre inventaire est plein. Résolvez les énigmes précédentes avant de récupérer cet objet.', '', 47.8622, 13.1262, 'img/billet.png', 232, 97, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 4, 16, 0, NULL, 7, NULL, NULL),
 (7, 'Aéroport', 'Une femme correspondant à celle des images de surveillance à pris l’avion pour l’Egypte la nuit du meurtre. Vous la retrouverez peut-être là-bas.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', '<p>Utiliser votre billet pour prendre l\'avion.</p>', 47.7942, 13.0012, 'img/avion.png', 300, 75, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 5, 16, 0, NULL, 9, NULL, 6),
-(8, 'Madame', 'Bravo ! Vous avez retrouvé la meurtrière !<form id = \"form\" action=\"fin.php\" method=\'post\'>\r\n<input type=\"hidden\" name=\"time\" value=\"\" >\r\n<input type=\"texte\" name=\"username\" required><br>\r\n<button type=\"submit\" name=\"submit\">Submit</button>\r\n</form>', '', 29.9773, 31.1303, 'img/madame.png', 101, 144, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 6, 7, 0, NULL, NULL, NULL, NULL),
+(8, 'Madame', 'Bravo ! Vous avez retrouvé la meurtrière !<form id = \"form\" action=\"fin.php\" method=\'post\'>\r\n<input type=\"hidden\" name=\"time\" value=\"\" >\r\n<input type=\"texte\" name=\"username\" placeholder=\"Username\" required><br>\r\n<button type=\"submit\" name=\"submit\">Submit</button>\r\n</form>', '', 29.9773, 31.1303, 'img/madame.png', 101, 144, 'music/zapsplat_horror_stab_dark_scary_cinematic_004_11803.mp3', 6, 7, 0, NULL, NULL, NULL, NULL),
 (9, 'antiquaire', 'Vous interrogez l\'antiquaire de l\'aéroport, mais il ne répondra à vos question que si vous l\'aider à retrouver les vases canope qui lui ont été volés.\r\n\r\n<p>Rapportez lui les vases dans le bon ordre car il est un peu maniaque </p>\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', 'Les vases se trouvent dans les alentours. Observez les biens pour déterminer le bon ordre.', 30.1123, 31.397, 'img/antiquaire.png', 57, 111, NULL, 5, 14, 0, NULL, 10, NULL, 17),
 (10, 'Antiquaire 1', 'L\'antiquaire attend le deuxième vase canope. <p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', 'Le deuxième vase a une tête de chacal.', 30.1123, 31.397, 'img/antiquaire1.png', 77, 111, NULL, 5, 14, 0, NULL, 11, NULL, 14),
 (11, 'Antiquaire 2', 'L\'antiquaire aimerait bien que vous trouviez le troisième vase canope.\r\n\r\n<p id =\'indice_texte\' style=\'text-align:center;\'><button class = \'bouton_indice\'>Indice</button> </p>', 'Si vous n\'avez toujours pas compris il faut regarder le nombre de bandes sur les vases.', 30.1123, 31.397, 'img/antiquaire2.png', 103, 111, NULL, 5, 14, 0, NULL, 12, NULL, 15),
