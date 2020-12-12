@@ -16,27 +16,10 @@
   </head>
 
   <body>
-    <!--<audio  loop="true" autoplay="true" controls>
-      <source src="music/POL-desert-temple-short.mp3" type="audio/mpeg">
-      <source src="music/POL-desert-temple-short.waw" type="audio/mpeg">
-    </audio> -->
-    <div class="jeu">
-      <h2 id="titre_jeu">GéoEscape</h2>
-      <div id = map></div>
-      <div id = "sac">
-          <div class = "poche" id = "poche1"></div>
-          <div class = "poche" id = "poche2"></div>
-          <div class = "poche" id = "poche3"></div>
-          <div class = "poche" id = "poche4"></div>
-      </div>
-      <div id = 'timer'>
-        <span id = "temps" style="font-size: 2.5rem;">
-          <span style="color: #FB8500;">
-            <i class="fas fa-stopwatch"></i>
-          </span>
-          <span id = 'chrono'>00:00:00</span>
-        </span>
+    <div class="cadreContainer">
+      <div class = "cadre">
+        <h1>L'affaire Müller</h1>
       </div>
     </div>
-    <script type="text/javascript" src="map.js"></script>
+    <img class="madame" src="img/madame.png">
   </body>

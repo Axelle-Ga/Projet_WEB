@@ -73,8 +73,8 @@ fetch('map.php', {
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 
-	/*mymap.addEventListener("popupopen",function() {openPopup(event, visible,layer, objets,id, tentative)},true);
-*/
+	//Essai d'ajouter les event aux boutons dans les popups autrement
+	/*mymap.addEventListener("popupopen",function() {openPopup(event, visible,layer, objets,id, tentative)},true);*/
 	/*mymap.addEventListener("popupclose",function() {closePopup(event, visible,layer, objets,id, tentative)},true);*/
 
   })
@@ -116,47 +116,16 @@ fetch('map.php', {
   }
 
 
- /* function openPopup(event,visible,layer, objets,id, tentative) {
-	  
-	var displayed = layer.getLayers();
-
-	var url = event.target.src;
-	var num = id.indexOf(url);
-
-	//Si le popup contient un bouton indice
-	if (document.getElementsByClassName("bouton_indice")[0]) {
-			console.log(document.getElementsByClassName("bouton_indice"));
-			var bouton = document.getElementsByClassName("bouton_indice")[0];
-
-			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-			bouton.addEventListener("click", debloque_indice);
-	}
-  }*/
-
- /* function closePopup(event,visible,layer, objets,id) {
-	var displayed = layer.getLayers();
-
-	var url = event.target.src;
-	var num = id.indexOf(url);
-	console.log(event);
-
-	if (document.getElementsByClassName("bouton_indice")[0]) {
-		console.log("true");
-		var bouton = document.getElementsByClassName("bouton_indice")[0];
-		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
-		bouton.removeEventListener("click",debloque_indice);
-		console.log("removed event");
-  	}
-}*/
-
-
-
   function onClick(event, visible, layer, objets, id, zoomMin, utilise, tentative){
 	
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
 	var num = id.indexOf(url);
+
+	/*var music = new Audio(objets[num].music);
+	music.load();
+	music.play();*/
 
 	//Si le popup contient un bouton indice
 	if (document.getElementsByClassName("bouton_indice")[0]) {
@@ -166,10 +135,6 @@ fetch('map.php', {
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
 			bouton.addEventListener("click", function(){debloque_indice(objets,num, visible, displayed, tentative)});
 	}
-
-	/*var music = new Audio(objets[num].music);
-	music.load();
-	music.play();*/
 
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
@@ -239,8 +204,7 @@ fetch('map.php', {
 
 	//objet bloqué par un autre objet de type aéroport
 	else if (objets[num].type ==5){
-		console.log(objets);
-		console.log("salut type5");
+
 		var poche = document.getElementsByClassName("poche");
 
 		for (var i = 0; i < poche.length; i++) {
@@ -259,9 +223,10 @@ fetch('map.php', {
 		}
 	}
 
-	//objet dont on ne pourra pas lire le pop-up et qui disparrai après pour laisser place à un autre
+	//objet de fin
 	else if (objets[num].type ==6){
 		//fin du jeu
+		
 	}
   }
 
@@ -376,3 +341,40 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 	}
 }
 	
+
+
+//Essaie de rajouter les event plus proprement sur les boutons dans les popup
+//MAis ça demanderai de pas mal changer le code pas le temps :,(
+
+ /* function openPopup(event,visible,layer, objets,id, tentative) {
+	  
+	var displayed = layer.getLayers();
+
+	var url = event.target.src;
+	var num = id.indexOf(url);
+
+	//Si le popup contient un bouton indice
+	if (document.getElementsByClassName("bouton_indice")[0]) {
+			console.log(document.getElementsByClassName("bouton_indice"));
+			var bouton = document.getElementsByClassName("bouton_indice")[0];
+
+			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+			bouton.addEventListener("click", debloque_indice);
+	}
+  }*/
+
+ /* function closePopup(event,visible,layer, objets,id) {
+	var displayed = layer.getLayers();
+
+	var url = event.target.src;
+	var num = id.indexOf(url);
+	console.log(event);
+
+	if (document.getElementsByClassName("bouton_indice")[0]) {
+		console.log("true");
+		var bouton = document.getElementsByClassName("bouton_indice")[0];
+		//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
+		bouton.removeEventListener("click",debloque_indice);
+		console.log("removed event");
+  	}
+}*/
