@@ -15,10 +15,32 @@
   <script src="https://kit.fontawesome.com/aed932af5e.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+<?php
+$link = mysqli_connect('localhost', 'root', 'root', 'highscore');
+
+if(isset($_POST['submit'])){
+    if (!empty($_POST['username'])) {
+        $username = $_POST['username'];
+        $time = '00:00:00';
+
+        $requete = "insert into scores(username,time) values('$username', '$time')";
+
+        $run = mysqli_query($link,$requete) or die(mysqli_error());
+
+    }
+}
+else {
+    echo("La connexion a échoué...");
+}
+
+
+?>
+
+<body>
     <div class="cadreContainer">
       <div class = "cadre">
-        <h1>L'affaire Müller</h1>
+        <h1> <?php echo($username); ?></h3>
+        <p>Votre temps : <?php echo($time);?></p>
       </div>
     </div>
     <img class="madame" src="img/madame.png">
