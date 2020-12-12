@@ -37,7 +37,7 @@ fetch('map.php', {
 		var ico = L.icon({iconUrl : element.icone, iconAnchor : [76,189], popupAnchor : [0,-175], id : element.id}); /* Récupération de l'icône et ancrage. */
 		var mark;
 		//On crée le marker associé à l'objet
-		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
+		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom});
 		//On associe un popup au marker
 		mark.bindPopup(element.indice);
 		//On ajoute le marker à la couche
@@ -56,7 +56,7 @@ fetch('map.php', {
 		if(element.visible == 1){
 			mark.addTo(mymap);
 		}
-		
+
 	});
 
 	//On ajoute l'intéraction avec les markers
@@ -103,7 +103,7 @@ fetch('map.php', {
   }
 
   function onClick(event, visible, layer, objets, id, zoomMin, utilise){
-	
+	console.log(objets);
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
@@ -134,7 +134,7 @@ fetch('map.php', {
 
 	//objet de type récupérable
 	else if (objets[num].type ==4){
-		
+
 
 		var inventaire = document.getElementsByClassName("poche");
 		console.log(inventaire.length);
@@ -209,7 +209,7 @@ function inventaire(event, poche){
 			event.target.classList.add("selection");
 		}
 	}
-	
+
 }
 
 function onSubmit(event,objets,num, visible, displayed){
@@ -225,20 +225,41 @@ function onSubmit(event,objets,num, visible, displayed){
 		displayed[objets[num].code_debloque].addTo(mymap);
 		//On enlève le coffre de la map
 		visible[num]=0;
-		mymap.removeLayer(displayed[num]);	
+		mymap.removeLayer(displayed[num]);
 	}
 
 	//si ce n'est pas le bon code on previent le joueur
 	else{
 		//On modifie le pop-up pour indiquer l'erreur au jour
 		displayed[num].setPopupContent(objets[num].indice+"<p>ERREUR : le code est faux</p>")
-		//On remet l'évement sur le submit 
+		//On remet l'évement sur le submit
 		var submit = document.getElementById("form");
-		submit.addEventListener("submit",function(event) { 
+		submit.addEventListener("submit",function(event) {
 			//On empèche la page de se recharger
 			event.stopImmediatePropagation();
 			onSubmit(event, objets,num, visible, displayed);
 			});
 	}
 }
-	
+
+// Set the date we're counting down to
+var countDownDate = new Date().getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = now - countDownDate;
+
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (3600*24*1000)) / (3600*1000));
+  var minutes = Math.floor((distance % (3600*1000)) / (60*1000));
+  var seconds = Math.floor((distance % 60000) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("chrono").innerHTML = hours + ":"
+  + minutes + ":" + seconds;
+}, 1000);
