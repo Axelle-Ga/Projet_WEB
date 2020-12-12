@@ -341,7 +341,27 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 	}
 }
 	
+// définit la date de début de jeu
+var countDownDate = new Date().getTime();
 
+// Mise à jour du chrono toutes les secondes
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = now - countDownDate;
+
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (3600*24*1000)) / (3600*1000));
+  var minutes = Math.floor((distance % (3600*1000)) / (60*1000));
+  var seconds = Math.floor((distance % 60000) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("chrono").innerHTML = hours + ":"
+  + minutes + ":" + seconds;
+}, 1000);
 
 //Essaie de rajouter les event plus proprement sur les boutons dans les popup
 //MAis ça demanderai de pas mal changer le code pas le temps :,(
