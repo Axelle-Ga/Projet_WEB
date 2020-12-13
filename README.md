@@ -21,7 +21,11 @@ Vous pouvez maintenant lancer le site en localhost.
 
 Mamp :  
 MySQL Version: 5.7.24  
-PHP Version: 7.4.1  
+PHP Version: 7.4.1 
+
+## Solutions
+
+ 
 
 ## Auteurs 
 
