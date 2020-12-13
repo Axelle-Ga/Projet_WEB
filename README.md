@@ -7,23 +7,23 @@ et résoudre les énigmes.
 
 ## Installation
 
-Installer mamp, xamp ou lamp.
+Installer mamp, xamp ou lamp.  
 Créer un nouvel base de donnée intitulée objet dans phpmyadmin et importer 
-le fichier objet.sql.
-
-db : objet
-host : root
-mdp : root
-
+le fichier objet.sql.  
+  
+db : objet  
+host : root  
+mdp : root  
+  
 Vous pouvez maintenant lancer le site en localhost.
 
 ## Versions logiciels utilisés
 
-Mamp : 
-MySQL Version: 5.7.24
-PHP Version: 7.4.1
+Mamp :  
+MySQL Version: 5.7.24  
+PHP Version: 7.4.1  
 
 ## Auteurs 
 
-Axelle Gaigé
+Axelle Gaigé  
 Léo Mazel
