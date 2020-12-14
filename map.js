@@ -42,7 +42,7 @@ fetch('map.php', {
 		var ico = L.icon({iconUrl : element.icone, iconSize:[element.taille_x, element.taille_y],iconAnchor : [element.taille_x/2,element.taille_y], popupAnchor : [0,-(element.taille_y+5)], id : element.id});
 		var mark;
 		//On crée le marker associé à l'objet
-		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom});
+		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
 		//On associe un popup au marker
 		mark.bindPopup(element.texte,{
 			className: 'stylePopup'
@@ -117,7 +117,7 @@ fetch('map.php', {
 
 
   function onClick(event, visible, layer, objets, id, zoomMin, utilise, tentative){
-
+	
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
@@ -157,7 +157,7 @@ fetch('map.php', {
 
 	//objet de type récupérable
 	else if (objets[num].type ==4){
-
+		
 
 		var inventaire = document.getElementsByClassName("poche");
 		console.log(inventaire.length);
@@ -170,7 +170,7 @@ fetch('map.php', {
 
 				//On libère l'objet suivant
 				debloque(objets, visible, zoomMin, num, displayed);
-
+				
 				//On rajoute l'objet dans l'inventaire
 				var img = document.createElement("img");
 				img.src=objets[num].icone;
@@ -193,7 +193,7 @@ fetch('map.php', {
 					setTimeout(() => {
 						draggedItem.style.display = "block";
 						draggedItem = null;
-					}, 0);
+					}, 0);					
 				})
 
 				//On casse la boucle car l'objet est ajouté à l'inventaire
@@ -240,7 +240,7 @@ fetch('map.php', {
 	if (document.getElementById("form")) {
 		console.log("submit dans le debloque indice");
 		var submit = document.getElementById("form");
-		submit.addEventListener("submit",function(event) {
+		submit.addEventListener("submit",function(event) { 
 			//On empèche la page de se recharger
 			event.stopImmediatePropagation();
 			onSubmit(event, objets,num, visible, displayed, tentative);
@@ -257,11 +257,11 @@ fetch('map.php', {
   for (var i = 0; i < poche.length; i++) {
 	//
 	  poche[i].addEventListener("dragover",function (event) {
-			event.preventDefault();
+			event.preventDefault();		  
 	  })
 	  //On modifie le style de la poche quand on entre dedans
 	  poche[i].addEventListener("dragenter",function (event) {
-		event.preventDefault();
+		event.preventDefault();	
 		this.classList.add("selection2");
 	  })
 
@@ -270,9 +270,9 @@ fetch('map.php', {
 		if (this.classList.contains("selection")) {
 			this.classList.remove("selection");
 		}
-		this.classList.remove("selection2");
+		this.classList.remove("selection2");		  
 	  })
-
+	  
 	  //On drop l'objet dans la poche si elle est vide
 	  poche[i].addEventListener("drop", function (event) {
 		  	//On previent le default event sinon ça ouvre l'image dans firefox
@@ -281,7 +281,7 @@ fetch('map.php', {
 			if (this.childNodes.length==0) {
 			this.appendChild(draggedItem);
 			}
-			this.classList.remove("selection2");
+			this.classList.remove("selection2");		  
 	  })
   }
 
@@ -298,7 +298,7 @@ function selection(img){
 		}
 		img.parentElement.classList.add("selection");
 	}
-
+	
 }
 
 function onSubmit(event,objets,num, visible, displayed, tentative){
@@ -314,7 +314,7 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 		displayed[objets[num].code_debloque].addTo(mymap);
 		//On enlève le coffre de la map
 		visible[num]=0;
-		mymap.removeLayer(displayed[num]);
+		mymap.removeLayer(displayed[num]);	
 	}
 
 	//si ce n'est pas le bon code on previent le joueur
@@ -322,9 +322,9 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 		//On modifie le pop-up pour indiquer l'erreur au jour
 		var content = displayed[num].getPopup().getContent();
 		displayed[num].setPopupContent(content +"<p>ERREUR : le code est faux</p>")
-		//On remet l'évement sur le submit
+		//On remet l'évement sur le submit 
 		var submit = document.getElementById("form");
-		submit.addEventListener("submit",function(event) {
+		submit.addEventListener("submit",function(event) { 
 			//On empèche la page de se recharger
 			event.stopImmediatePropagation();
 			onSubmit(event, objets,num, visible, displayed, tentative);
@@ -340,7 +340,7 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 		tentative[num] = 1;
 	}
 }
-
+	
 // définit la date de début de jeu
 var countDownDate = new Date().getTime();
 
@@ -367,7 +367,7 @@ var x = setInterval(function() {
 //MAis ça demanderai de pas mal changer le code pas le temps :,(
 
  /* function openPopup(event,visible,layer, objets,id, tentative) {
-
+	  
 	var displayed = layer.getLayers();
 
 	var url = event.target.src;
