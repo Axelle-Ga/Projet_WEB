@@ -4,9 +4,9 @@ body {
     font-family:"PAPYRUS";
     src: url("font/papyrus/PAPYRUS.ttf") format("truetype");
   }
-  
+
 html{
-    background: url(img/pyramide.png) no-repeat center center fixed; 
+    background: url(img/pyramide.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -16,6 +16,45 @@ html{
 html, body, #map {
     height: 100%;
     width: 100vw;
+}
+
+.presentation{
+    color: white;
+    background: linear-gradient(#FB8500,#ffb803);
+    margin-left: 90px;
+    margin-right: 90px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cadreContainer_ind{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre_ind{
+    text-align: center;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.cadreContainer_ap{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre_ap{
+    text-align: center;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
 }
 
 .cadreContainer{
@@ -40,6 +79,7 @@ html, body, #map {
     margin-right: 90px;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 ol{
@@ -54,20 +94,20 @@ ol{
 #r2{
     font-weight: bold;
     font-size: 1.2em;
-    
+
 }
 #r3{
     font-weight: bold;
 }
 
-h1{ 
+h1{
     color: #FB8500;
     margin-top: 15px;
     margin-bottom: 10px;
     font-size: 4em;
 }
 
-h2{ 
+h2{
     grid-row: 1;
     grid-column: 1;
     margin: auto;
@@ -98,7 +138,13 @@ button{
     height: 25px;
     margin-bottom: 20px;
 }
-
+button:hover{
+  background-color:#FF8403;
+  border-color: #E75E00;
+}
+#tabsco{
+  width:150px;
+}
 .jeu{
     height: 100%;
     width: 100%;
