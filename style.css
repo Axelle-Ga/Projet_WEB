@@ -18,6 +18,45 @@ html, body, #map {
     width: 100vw;
 }
 
+.presentation{
+    color: white;
+    background: linear-gradient(#FB8500,#ffb803);
+    margin-left: 90px;
+    margin-right: 90px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cadreContainer_ind{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre_ind{
+    text-align: center;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.cadreContainer_ap{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadre_ap{
+    text-align: center;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
 .cadreContainer{
     width: 100vw;
     height: 100vh;
@@ -40,6 +79,7 @@ html, body, #map {
     margin-right: 90px;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 ol{
@@ -98,6 +138,15 @@ button{
     height: 25px;
     margin-bottom: 20px;
 }
+
+button:hover{
+    background-color:#FF8403;
+    border-color: #E75E00;
+  }
+
+#tabsco{
+    width:150px;
+  }
 
 .jeu{
     height: 100%;
