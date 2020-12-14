@@ -19,7 +19,6 @@
       <source src="music/POL-desert-temple-short.mp3" type="audio/mpeg">
       <source src="music/POL-desert-temple-short.waw" type="audio/mpeg">
     </audio> -->
-    <a href="index.php" title="Accueil"><i id = "home" class="fas fa-home"></i></a>
     <div class="jeu">
       <h2>GéoEscape</h2>
       <div id = map></div>
