@@ -15,10 +15,45 @@
   <script src="https://kit.fontawesome.com/aed932af5e.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+<?php
+$link = mysqli_connect('localhost', 'root', 'root', 'objet');
+
+if(isset($_POST['submit'])){
+    if (!empty($_POST['username'])) {
+        $username = $_POST['username'];
+        $time = $_POST['time'];
+
+        $requete = "insert into scores(username,time) values('$username', '$time')";
+
+        $run = mysqli_query($link,$requete) or die(mysqli_error());
+
+    }
+}
+else {
+    echo("La connexion a échoué...");
+}
+
+$query = "SELECT * from scores WHERE time <= '$time'";
+
+$result = mysqli_query($link, $query); 
+$row = mysqli_num_rows($result);
+
+?>
+
+<body>
     <div class="cadreContainer">
       <div class = "cadre">
-        <h1>L'affaire Müller</h1>
+        <h1> <?php echo($username); ?></h3>
+        <p>Votre temps : <?php echo($time);?></p>
+        <p><?php 
+        if($row == 0){
+          echo("Bravo vous avez battu le meilleur score!");
+        }
+        else {
+          $rang=$row+1;
+          echo("Vous êtes classé.e :".$rang."ème"); 
+        }
+        ?></p>
       </div>
     </div>
     <img class="madame" src="img/madame.png">
