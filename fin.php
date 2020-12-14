@@ -41,7 +41,6 @@ $row = mysqli_num_rows($result);
 ?>
 
 <body>
-  <a href="index.php" title="Accueil"><i id = "home" class="fas fa-home"></i></a>
     <div class="cadreContainer">
       <div class = "cadre">
         <h1> <?php echo($username); ?></h3>
@@ -55,11 +54,6 @@ $row = mysqli_num_rows($result);
           echo("Vous êtes classé.e :".$rang."ème"); 
         }
         ?></p>
-        <p>
-          <form action="index.php">
-            <button>Accueil</button>
-          </form>
-        </p>
       </div>
     </div>
     <img class="madame" src="img/madame.png">
