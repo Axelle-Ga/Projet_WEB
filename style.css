@@ -210,6 +210,20 @@ button:hover{
     align-items: center;
 }
 
+#home{
+    position: absolute;
+    left:0px;
+    right: 0px;
+    margin: 15px;
+    color: white;
+    font-size : 1.8rem;
+
+}
+
+#home:hover{
+    text-shadow:0px 0px 10px #FB8500;
+}
+
 .stylePopup .leaflet-popup-content-wrapper,
     .stylePopup .leaflet-popup-tip {
         background-color: #023047;
@@ -283,6 +297,16 @@ button:hover{
         order: 2;
         border-radius: 10px 10px 0px 0px ;
         flex-grow: 100%;
+    }
+
+    #home{
+        position: absolute;
+        left:0px;
+        right: 0px;
+        margin: 10px;
+        color: white;
+        font-size : 1.8rem;
+    
     }
 
 }
