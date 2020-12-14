@@ -5,11 +5,20 @@
     <title>EscapeGame géographique</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" media="screen" href="style.css">
+    <link rel="stylesheet" media="screen" href="menu.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+    <script src="https://kit.fontawesome.com/aed932af5e.js" crossorigin="anonymous"></script>
   </head>
 
+  <header>
+    <ul>
+      <li><a href="index.php" title="Accueil"><i class="fas fa-home"></i></i></a></li>
+      <li><a href="halloffame.php">Score</a></li>
+      <li><a href="apropos.php">À propos</a></li>
+    </ul>
+  </header>
+
   <body>
-    <a href="index.php" title="Accueil"><i id = "home" class="fas fa-home"></i></a>
     <div class="cadreContainer">
       <div class = "cadre">
         <h1>L'affaire Müller</h1>

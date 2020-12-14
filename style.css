@@ -23,6 +23,7 @@ html, body, #map {
     background: linear-gradient(#FB8500,#ffb803);
     margin-left: 90px;
     margin-right: 90px;
+    margin-bottom: 20px;
     padding: 10px;
     border-radius: 10px;
 }
@@ -104,7 +105,7 @@ h1{
     color: #FB8500;
     margin-top: 15px;
     margin-bottom: 10px;
-    font-size: 4em;
+    font-size: 3em;
 }
 
 h2{ 
@@ -245,10 +246,18 @@ button:hover{
     #chrono{
         font-size: 0.7em;
     }
+
+    .cadre_ind{
+        width: 90%;
+    }
+
+    .presentation{
+        margin: 20px;
+    }
 }
 
 @media (max-width: 715px){
-    .cadre{
+    .cadre, .cadre_ap{
         width: 90%;
     }
 
