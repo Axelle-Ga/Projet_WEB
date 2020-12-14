@@ -39,5 +39,4 @@
         </form>
       </div>
     </div>
-  <script src="score.js"></script>
   </body>
