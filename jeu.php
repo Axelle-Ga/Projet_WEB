@@ -22,7 +22,7 @@
     </audio> -->
     <a href="index.php" title="Accueil"><i id = "home" class="fas fa-home"></i></a>
     <div class="jeu">
-      <h2 id="titre_jeu">GéoEscape</h2>
+      <h2 id="titre_jeu">L'affaire Müller</h2>
       <div id = map></div>
       <div id = "sac">
           <div class = "poche" id = "poche1"></div>

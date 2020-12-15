@@ -19,12 +19,18 @@ html, body, #map {
 }
 
 .presentation{
+    overflow : auto;
+    height: 45vh;
     color: white;
     background: linear-gradient(#FB8500,#ffb803);
-    margin-left: 90px;
-    margin-right: 90px;
+    margin-left: 70px;
+    margin-right: 70px;
+    margin-bottom: 20px;
     padding: 10px;
     border-radius: 10px;
+    scrollbar-face-color : #8ecae6;
+    scrollbar-track-color : #219ebc;
+    scrollbar-arrow-color : #023047; 
 }
 
 .cadreContainer_ind{
@@ -37,7 +43,7 @@ html, body, #map {
 
 .cadre_ind{
     text-align: center;
-    width: 60%;
+    width: 70%;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
 }
@@ -52,7 +58,8 @@ html, body, #map {
 
 .cadre_ap{
     text-align: center;
-    width: 80%;
+    width: 70%;
+    max-height: 80%;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
 }
@@ -104,7 +111,7 @@ h1{
     color: #FB8500;
     margin-top: 15px;
     margin-bottom: 10px;
-    font-size: 4em;
+    font-size: 3em;
 }
 
 h2{ 
@@ -245,10 +252,18 @@ button:hover{
     #chrono{
         font-size: 0.7em;
     }
+
+    .cadre_ind{
+        width: 90%;
+    }
+
+    .presentation{
+        margin: 20px;
+    }
 }
 
 @media (max-width: 715px){
-    .cadre{
+    .cadre, .cadre_ap{
         width: 90%;
     }
 
