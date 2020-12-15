@@ -16,10 +16,6 @@
   </head>
 
   <body>
-    <!--<audio  loop="true" autoplay="true" controls>
-      <source src="music/POL-desert-temple-short.mp3" type="audio/mpeg">
-      <source src="music/POL-desert-temple-short.waw" type="audio/mpeg">
-    </audio> -->
     <a href="index.php" title="Accueil"><i id = "home" class="fas fa-home"></i></a>
     <div class="jeu">
       <h2 id="titre_jeu">L'affaire Müller</h2>
@@ -39,5 +35,13 @@
         </span>
       </div>
     </div>
+
+    <div style="display:none">
+      <audio loop="true" autoplay="true" controls>
+        <source src="music/POL-desert-temple-short.mp3" type="audio/mpeg">
+        <source src="music/POL-desert-temple-short.waw" type="audio/wav">
+      </audio>
+    </div>
+    
     <script type="text/javascript" src="map.js"></script>
   </body>
