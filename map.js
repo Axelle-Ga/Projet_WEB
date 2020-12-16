@@ -129,7 +129,6 @@ fetch('map.php', {
 
 	//Si le popup contient un bouton indice
 	if (document.getElementsByClassName("bouton_indice")[0]) {
-			console.log(document.getElementsByClassName("bouton_indice"));
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
@@ -160,9 +159,7 @@ fetch('map.php', {
 		
 
 		var inventaire = document.getElementsByClassName("poche");
-		console.log(inventaire.length);
 		for (var i = 0; i<inventaire.length; i++){
-			console.log(inventaire[i]);
 			if (inventaire[i].childNodes.length==0) {
 
 				visible[num]=0;
@@ -233,12 +230,10 @@ fetch('map.php', {
 //Debloque l'indice quand on clique sur le bouton indice
   function debloque_indice(objets,num, visible, displayed, tentative) {
 
-	console.log("dans la fonction debloque indice");
 	//On change le texte du popup
 	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button class = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
 	//Si le popup contient un submit on met un eventlistener dessus
 	if (document.getElementById("form")) {
-		console.log("submit dans le debloque indice");
 		var submit = document.getElementById("form");
 		submit.addEventListener("submit",function(event) { 
 			//On empèche la page de se recharger
@@ -331,7 +326,6 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 			});
 
 		if (document.getElementsByClassName("bouton_indice")[0]) {
-			console.log("true");
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
 			bouton.addEventListener("click", function () { debloque_indice(objets,num, visible, displayed, tentative)});
