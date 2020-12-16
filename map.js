@@ -11,6 +11,8 @@ function initMap(){
 }).addTo(mymap);
 }
 
+
+
 //On récupère l'url courante pour l'utiliser lors d'évènement
 var url = window.location.href;
 url = url.replace("jeu.php?","");
@@ -18,13 +20,16 @@ url = url.replace("jeu.php?","");
 //On definit l'élement dragged pour le drag n drop des objets récupérable
 var draggedItem;
 
+
+
+
 //on va créer la carte de base en récupérant les objets dans la base de donnée
 fetch('map.php', {
 	method: 'post',
   })
   .then(r => r.json())
   .then(r => {
-	//Création d'un feature group dans lequel on va mettre les marker représentant les objets
+	//Création d'un feature group dans lequel on va mettre les markers représentant les objets
 	var layer = new L.featureGroup();
 
 	var objets=r;
@@ -40,9 +45,8 @@ fetch('map.php', {
 	r.forEach(element => {
 		/* Récupération de l'icône et ancrage. */
 		var ico = L.icon({iconUrl : element.icone, iconSize:[element.taille_x, element.taille_y],iconAnchor : [element.taille_x/2,element.taille_y], popupAnchor : [0,-(element.taille_y+5)], id : element.id});
-		var mark;
 		//On crée le marker associé à l'objet
-		mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
+		var mark = L.marker([element.latitude, element.longitude],{icon: ico}, {title :element.nom}); 
 		//On associe un popup au marker
 		mark.bindPopup(element.texte,{
 			className: 'stylePopup'
@@ -70,6 +74,7 @@ fetch('map.php', {
 
 	//On ajoute l'intéraction avec les markers
 	layer.on("click", function() {onClick(event, visible,layer, objets, id, zoomMin, utilise, tentative )});
+
 	//On ajoute l'eventListener qui permet de faire apparaitre ou disparaitre les marker en fonction du niveau de zoom
 	mymap.addEventListener("zoomend",function() {onZoom(mymap,zoomMin,visible,layer, objets,id)},true);
 
@@ -80,12 +85,15 @@ fetch('map.php', {
   })
 
 
+
+
+
   function onZoom(mymap, zoomMin,visible, layer, objets,id,){
-	//en fonction du zoom de la carte les marker sont affichés ou non
+	//en fonction du zoom de la carte les markers sont affichés ou non
 
 	//On récupère les couches
 	var displayed = layer.getLayers();
-	//Pour chaque couche on reagrde si elle doit être affichée ou non
+	//Pour chaque couche on regarde si elle doit être affichée ou non
 	for (var i = 0 ; i < displayed.length ; i++){
 
 		//Si a couche i est affichée mais que le zoom est trop petit
@@ -103,17 +111,7 @@ fetch('map.php', {
   }
 
 
-  function debloque(objets, visible, zoomMin, num, displayed){
-	//Debloque l'objet à débloquer
 
-	//Rend l'objet à débloquer visible
-	visible[objets[num].debloque]=1;
-
-	//Ajoute à la carte l'objet à débloquer si il faut
-	if (!(mymap.hasLayer(displayed[objets[num].debloque])) && (mymap.getZoom()>=zoomMin[objets[num].debloque]) && visible[objets[num].debloque]==1){
-		displayed[objets[num].debloque].addTo(mymap);
-	}
-  }
 
 
   function onClick(event, visible, layer, objets, id, zoomMin, utilise, tentative){
@@ -123,6 +121,7 @@ fetch('map.php', {
 	var url = event.target.src;
 	var num = id.indexOf(url);
 
+	//Son quand on clique sur un objet, supprimer car insupportable
 	/*var music = new Audio(objets[num].music);
 	music.load();
 	music.play();*/
@@ -137,11 +136,14 @@ fetch('map.php', {
 
 	//objet basique qui libère le suivant mais reste sur la carte
 	if (objets[num].type ==1) {
+		//Si l'objet n'a pas déjà débloqué le suivant
 		if (utilise[num]==0) {
+			//On debloque l'objet suivant
 			debloque(objets, visible, zoomMin, num, displayed);
 			utilise[num]=1;
 		}
 	}
+
 	//objets de type coffre-fort à débloquer par code
 	else if (objets[num].type ==2){
 		//On récupère le formulaire
@@ -156,12 +158,12 @@ fetch('map.php', {
 
 	//objet de type récupérable
 	else if (objets[num].type ==4){
-		
-
+		//On récupère l'inventaire
 		var inventaire = document.getElementsByClassName("poche");
 		for (var i = 0; i<inventaire.length; i++){
+			//Si la poche est vide on place l'objet dedans
 			if (inventaire[i].childNodes.length==0) {
-
+				//On enlève l'objet de la carte
 				visible[num]=0;
 				mymap.removeLayer(displayed[num]);
 
@@ -175,6 +177,7 @@ fetch('map.php', {
 				img.draggable= true;
 				inventaire[i].appendChild(img);
 
+				//On ajoute une séléction sur l'objet dans l'inventaire
 				img.addEventListener("click", function () {
 					selection(img);
 				})
@@ -201,18 +204,26 @@ fetch('map.php', {
 
 	//objet bloqué par un autre objet de type aéroport
 	else if (objets[num].type ==5){
-
+		//On récupère l'inventaire
 		var poche = document.getElementsByClassName("poche");
 
 		for (var i = 0; i < poche.length; i++) {
 			var c = poche[i].childNodes;
+			
+			//Si l'objet bloquant est sélectionné dans l'inventaire
 			if (poche[i].classList.contains("selection") && c.length>0 && c[0].src == id[objets[num].objet_debloque]){
+				
+				//On enlève l'objet de l'inventaire
 				poche[i].removeChild(poche[i].firstChild);
 				poche[i].classList.remove("selection");
+
+				//On enlève l'objet précédement bloqué de la carte
 				visible[num]=0;
 				mymap.removeLayer(displayed[num]);
+
 				//On libère l'objet suivant
 				debloque(objets, visible, zoomMin, num, displayed);
+
 				//Change la vue de la map quand on prend l'avion
 				mymap.setView([objets[objets[num].debloque].latitude,[objets[objets[num].debloque].longitude]],objets[objets[num].debloque].minZoom);
 
@@ -227,11 +238,32 @@ fetch('map.php', {
 	}
   }
 
+
+
+
+
+  function debloque(objets, visible, zoomMin, num, displayed){
+	//Debloque l'objet à débloquer
+
+	//Rend l'objet à débloquer visible
+	visible[objets[num].debloque]=1;
+
+	//Ajoute à la carte l'objet à débloquer si il faut
+	if (!(mymap.hasLayer(displayed[objets[num].debloque])) && (mymap.getZoom()>=zoomMin[objets[num].debloque]) && visible[objets[num].debloque]==1){
+		displayed[objets[num].debloque].addTo(mymap);
+	}
+  }
+
+
+
+
+
 //Debloque l'indice quand on clique sur le bouton indice
   function debloque_indice(objets,num, visible, displayed, tentative) {
 
 	//On change le texte du popup
 	displayed[num].setPopupContent(objets[num].texte.replace("<p id ='indice_texte' style='text-align:center;'><button class = 'bouton_indice'>Indice</button> </p>" ,"")+objets[num].indice)
+	
 	//Si le popup contient un submit on met un eventlistener dessus
 	if (document.getElementById("form")) {
 		var submit = document.getElementById("form");
@@ -246,11 +278,12 @@ fetch('map.php', {
 
 
 
+
   //Ajout d'une sélection sur l'inventaire et d'un drag n drop
 
   var poche = document.getElementsByClassName("poche");
   for (var i = 0; i < poche.length; i++) {
-	//
+	
 	  poche[i].addEventListener("dragover",function (event) {
 			event.preventDefault();		  
 	  })
@@ -281,12 +314,20 @@ fetch('map.php', {
   }
 
 
-//Fonction de sélection à supprimer quand le drag n drop fonctionnera
+
+
+  
+
+//Fonction de sélection à améliorer en un dnd sur la carte
 function selection(img){
 	//Ne fct que si on clique sur l'image
+
+	//Si la poche est déjà sélectionnée on la déselectionne
 	if (img.parentElement.classList.contains("selection")){
 		img.parentElement.classList.remove("selection");
 	}
+
+	//Sinon on la séléctionne et on supprime le sélection de toutes les autres poches
 	else{
 		for (var i = 0; i < poche.length; i++) {
 			poche[i].classList.remove("selection");
@@ -296,9 +337,14 @@ function selection(img){
 	
 }
 
+
+
+
+
 function onSubmit(event,objets,num, visible, displayed, tentative){
 	//On empèche la page de se recharger
 	event.preventDefault();
+
 	//On récupère la valeur donner par le joueur
 	var result = document.getElementById("code").value;
 
@@ -325,6 +371,7 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 			onSubmit(event, objets,num, visible, displayed, tentative);
 			});
 
+		//Si le popup contient un bouton indice ou remet l'évènement dessus
 		if (document.getElementsByClassName("bouton_indice")[0]) {
 			var bouton = document.getElementsByClassName("bouton_indice")[0];
 			//Quand on clique sur le bouton on rajoute l'indice dans le popup et on supprime le bouton
@@ -334,6 +381,10 @@ function onSubmit(event,objets,num, visible, displayed, tentative){
 		tentative[num] = 1;
 	}
 }
+
+
+
+
 	
 // définit la date de début de jeu
 var countDownDate = new Date().getTime();
@@ -341,21 +392,25 @@ var countDownDate = new Date().getTime();
 // Mise à jour du chrono toutes les secondes
 var x = setInterval(function() {
 
-  // Get today's date and time
+  // On récupère la date actuelle
   var now = new Date().getTime();
 
-  // Find the distance between now and the count down date
+  // On calcul la différence entre la date actuelle et celle de référence
   var distance = now - countDownDate;
 
-  // Time calculations for days, hours, minutes and seconds
+  // On calcul l'heure, les minutes, et les secondes
   var hours = Math.floor((distance % (3600*24*1000)) / (3600*1000));
   var minutes = Math.floor((distance % (3600*1000)) / (60*1000));
   var seconds = Math.floor((distance % 60000) / 1000);
 
-  // Output the result in an element with id="demo"
+  // On mets le temps écoulé dans l'élément id=chrono
   document.getElementById("chrono").innerHTML = hours + ":"
   + minutes + ":" + seconds;
 }, 1000);
+
+
+
+
 
 //Essaie de rajouter les event plus proprement sur les boutons dans les popup
 //MAis ça demanderai de pas mal changer le code pas le temps :,(
@@ -376,6 +431,9 @@ var x = setInterval(function() {
 			bouton.addEventListener("click", debloque_indice);
 	}
   }*/
+
+
+
 
  /* function closePopup(event,visible,layer, objets,id) {
 	var displayed = layer.getLayers();
