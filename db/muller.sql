@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : jeu. 17 déc. 2020 à 17:26
--- Version du serveur :  10.4.14-MariaDB
--- Version de PHP : 7.4.11
+-- Host: localhost:3306
+-- Generation Time: Dec 17, 2020 at 05:58 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `objet`
+-- Database: `muller`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `scores`
+-- Table structure for table `scores`
 --
 
 CREATE TABLE `scores` (
@@ -33,7 +34,7 @@ CREATE TABLE `scores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `scores`
+-- Dumping data for table `scores`
 --
 
 INSERT INTO `scores` (`username`, `time`) VALUES
@@ -55,12 +56,15 @@ INSERT INTO `scores` (`username`, `time`) VALUES
 ('Axelle51', '00:01:42'),
 ('Axelle', '00:01:06'),
 ('Axelle', '00:02:03'),
-('Axland', '00:01:06');
+('Axland', '00:01:06'),
+('Léo', '00:01:14'),
+('Léo', '00:00:58'),
+('Léo', '00:01:06');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tbl_objet`
+-- Table structure for table `tbl_objet`
 --
 
 CREATE TABLE `tbl_objet` (
@@ -84,7 +88,7 @@ CREATE TABLE `tbl_objet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `tbl_objet`
+-- Dumping data for table `tbl_objet`
 --
 
 INSERT INTO `tbl_objet` (`id`, `nom`, `texte`, `indice`, `latitude`, `longitude`, `icone`, `taille_x`, `taille_y`, `music`, `type`, `minZoom`, `visible`, `code`, `debloque`, `code_debloque`, `objet_debloque`) VALUES
@@ -108,22 +112,22 @@ INSERT INTO `tbl_objet` (`id`, `nom`, `texte`, `indice`, `latitude`, `longitude`
 (17, 'Vase pharaon', 'Votre inventaire est plein. Résolvez les enigmes précédentes pour pouvoir récupérer cet objet.', '', 30.1217, 31.3658, 'img/vase_pharaon.png', 162, 95, NULL, 4, 15, 1, NULL, NULL, NULL, NULL);
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `tbl_objet`
+-- Indexes for table `tbl_objet`
 --
 ALTER TABLE `tbl_objet`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `tbl_objet`
+-- AUTO_INCREMENT for table `tbl_objet`
 --
 ALTER TABLE `tbl_objet`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;

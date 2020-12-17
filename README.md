@@ -2,24 +2,25 @@
 
 L'affaire Müller est un escape game géographique réalisé pour un projet 
 web. Le but du jeu est de retrouver le meurtrier de l'archéologue Markus
-Müller. Pour cela il vous faudra trouver les objets dispersé sur la carte
+Müller. Pour cela il vous faut trouver les objets dispersés sur la carte
 et résoudre les énigmes.
 
 ## Installation
 
-Installer mamp, xamp ou lamp.  
-Créer un nouvel base de donnée intitulée objet dans phpmyadmin et importer 
-le fichier objet.sql.  
+Installez mamp, xampp ou lamp.  
+Téléchargez tout le code et placez-le dans le dossier racine (à configurer dans mamp).
+Créez une nouvelle base de donnée intitulée muller dans phpmyadmin et importer 
+le fichier muller.sql.  
   
-db : objet  
+db : muller  
 host : root  
 mdp : root  
   
 Vous pouvez maintenant lancer le site en localhost.
 
-## Versions logiciels utilisés
+## Versions des logiciels utilisés
 
-Firefox : 83.0 (64 bits) (Attention sur firefox la musique du jeu se lance seulement si vous autorisé firefox à le faire dans vos paramètres)  
+Firefox : 83.0 (64 bits) (Attention sur Firefox la musique du jeu se lance seulement si vous autorisez Firefox à le faire dans vos paramètres)  
 Google Chrome : Version 87.0.4280.88 (Official Build) (64-bit)  
 Microsoft Edge : Version 87.0.664.60 (Version officielle) (64 bits)  
 
