@@ -19,7 +19,7 @@ Vous pouvez maintenant lancer le site en localhost.
 
 ## Versions logiciels utilisés
 
-Firefox : 83.0 (64 bits)  
+Firefox : 83.0 (64 bits) (Attention sur firefox la musique du jeu se lance seulement si vous autorisé firefox à le faire dans vos paramètres)  
 Google Chrome : Version 87.0.4280.88 (Official Build) (64-bit)  
 Microsoft Edge : Version 87.0.664.60 (Version officielle) (64 bits)  
 
