@@ -18,7 +18,7 @@
 
 
 <?php
-$link = mysqli_connect('localhost', 'root', 'root', 'objet');
+$link = mysqli_connect('localhost', 'root', 'root', 'muller');
 
 if(isset($_POST['submit'])){
     if (!empty($_POST['username'])) {
@@ -35,7 +35,7 @@ else {
     echo("La connexion a échoué...");
 }
 
-$query = "SELECT * from scores WHERE time <= '$time'";
+$query = "SELECT * from scores WHERE time < '$time'";
 
 $result = mysqli_query($link, $query); 
 $row = mysqli_num_rows($result);
@@ -56,7 +56,7 @@ $row = mysqli_num_rows($result);
         <p>Votre temps : <?php echo($time);?></p>
         <p><?php 
         if($row == 0){
-          echo("Bravo vous avez battu le meilleur score!");
+          echo("Bravo vous avez battu le meilleur score !");
         }
         else {
           $rang=$row+1;

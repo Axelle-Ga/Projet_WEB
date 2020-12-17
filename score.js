@@ -8,7 +8,6 @@ fetch('scoreboard.php', {
   })
   .then(r => r.json())
   .then(r => {
-    console.log(r);
         for (var i = 0; i<r.length;i++) {
             rang[i].innerHTML=r[i].username+' '+r[i].time;
         };
